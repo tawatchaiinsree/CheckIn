@@ -1,0 +1,117 @@
+.left{
+      margin-left: 1rem;
+    }
+.top{
+      margin-top: 1rem;
+    }
+#wrapper {
+    overflow-x: hidden;
+ }
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    content: "";
+    background: no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.navbar-toggler {
+    padding: .25rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.profile-pic {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.center-block-profile {
+  display: block;
+  /* margin-right: 30%; */
+  margin-left: 10%;
+  font-size: 22px;
+}
+
+.center-block {
+  display: block;
+  /* margin-right: 30%; */
+  /* margin-left: 30%; */
+  font-size: 25px;
+  align-content: center;
+  text-align: center;
+  margin: auto;
+}
+
+@font-face {
+  font-family: myFirstFont;
+  src: url(/asset/fonts/maha.ttf);
+}
+
+body, i, button {
+  font-family: myFirstFont;
+  font-size: 25px;
+}
+
+.font-25{
+  font-family: myFirstFont;
+  font-size: 25px;
+}
+
+.tb-center{
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 25px;
+  text-align: center;
+  align-content: center;
+
+}
