@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="/asset/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/asset/fonts/iconic/css/material-design-iconic-font.min.css">
     <script type="text/javascript" src="/asset/moment-with-locales.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 </head>
 <body >
 
@@ -54,9 +54,60 @@
                         <p>อีเมล: $email</p>
                         <p>เบอร์โทรติดต่อ: $phone</p>
                         <br>
-                        <button class="btn btn-warning font-25" style="float: right; margin-right: 2rem;"> <i class="fa fa-id-card" aria-hidden="true"></i> แก้ไขข้อมูลส่วนตัว</button>
+                        <button data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-warning font-25" style="float: right; margin-right: 2rem;"> <i class="fa fa-id-card" aria-hidden="true"></i> แก้ไขข้อมูลส่วนตัว</button>
                     </div>
                     EOD;
             ?>
     </div>
+    <!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">แก้ไขข้อมูลส่วนตัว</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="edit_detail.php" method="post">
+          <input type="text" name="username" id="username" value="<?php echo $username; ?>" hidden>
+      <div class="modal-body font-25">
+        <div class="form-inline">
+            <label for="pname">คำนำหน้าชื่อ:</label>
+            <div class="autocomplete" style="width:300px;">
+                <input id="myInput" type="text" class="form-control left" name="pname" value="<?php echo $prefix; ?>" placeholder="คำนำหน้าชื่อ">
+            </div>
+        </div>
+                <div class="form-inline top">
+                    <label for="fname">ชื่อ: </label>
+                    <input type="text" name="fname" id="fname" class="form-control left" placeholder="ระบุชื่อจริง" value="<?php echo $fname; ?>" required>
+                    <label for="lname" class="left">นามสกุล: </label>
+                    <input type="text" name="lname" id="lname" class="form-control left" placeholder="ระบุชื่อนามสกุล" value="<?php echo $lname; ?>" required>
+                </div>
+
+                <div class="form-inline top">
+                    <label for="position">ตำแหน่ง: </label>
+                    <input type="text" name="position" id="position" class="form-control left" placeholder="ตำแหน่ง" value="<?php echo $position; ?>" required>
+                </div>
+
+                <div class="form-inline top">
+                    <label for="email">อีเมล: </label>
+                    <input type="email" name="email" id="email" class="form-control left" placeholder="อีเมล" value="<?php echo $email; ?>" required>
+                </div>
+
+                <div class="form-inline top">
+                    <label for="phone">เบอร์โทร: </label>
+                    <input type="text" name="phone" id="phone" class="form-control left" minlength="10" maxlength="10" placeholder="เบอร์โทรศัพท์" value="<?php echo $phone; ?>" required>
+                </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+        <button type="submit" class="btn btn-success">บันทึกการเปลี่ยนแปลง</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+   
     <div style="width: 100%; height: 100%;">
