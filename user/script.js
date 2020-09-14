@@ -6,3 +6,7 @@ function update_time(){
     document.getElementById('time_to_table').value = moment().format('LT:ss');
     console.log((moment().add(543, 'year').format('LT')));
 }
+
+$(document).ready(function() {
+  $('#example').DataTable();
+} );

@@ -1,5 +1,5 @@
 <?php
-$servername = "elcmall.com";
+$servername = "34.126.84.199";
 $username = "root";
 $password = "02CorpInc";
 $dbname = "checkin";
