@@ -1,5 +1,6 @@
 .center-block {
-    display: block;
-    margin-right: 30%;
-    margin-left: 30%;
+    /* display: block; */
+    margin: auto;
+    /* margin-right: 30%; */
+    /* margin-left: 30%; */
   }

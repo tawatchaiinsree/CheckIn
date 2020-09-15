@@ -33,7 +33,7 @@
         
       <nav class="navbar navbar-expand-lg navbar-light border-bottom" style="background-color: #595959;">
         <img src="../../asset/img/icon.png" alt="icon" style="width: 5rem;">
-        <label style="font-size: 32px;color: ivory;">สำนักงานที่ดินจังหวัดสงขลา</label>
+        <label style="font-size: 32px;color: ivory; margin-top: 0.75rem;">สำนักงานที่ดินจังหวัดสงขลา</label>
 
         <a href="/" style="margin-left: 50%; font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a>
         <a href="contact.php" style="margin-left: 2rem; font-size: 28px; color: ivory;"><i class="fa fa-phone" aria-hidden="true"></i>ติดต่อเรา</a>

@@ -17,7 +17,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <img src="/asset/img/icon.png" class="rounded mx-auto d-block" style="width: 20rem;">
+                <img src="/asset/img/icon.png" class="rounded mx-auto d-block" style="width: 30rem;">
             <h2 style="text-align:center; "> สำนักงานที่ดินจังหวัดสงขลา</h2>
             </div>
             <div class="card-body center-block">
