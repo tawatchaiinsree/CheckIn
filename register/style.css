@@ -1,7 +1,6 @@
 .center-block {
-    display: block;
-    margin-right: 25%;
-    margin-left: 10%;
+    /* display: block; */
+    margin: auto;
   }
 
   .autocomplete {

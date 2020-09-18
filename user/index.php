@@ -2,6 +2,7 @@
     require_once("../global.php");
     require_once('component/header.php');
     require("../config/mysql_connect.php");
+    require_once("../check_users.php")
 ?>
 
 <!------------------------------ BODY -------------------------------->
@@ -22,7 +23,7 @@
             <td>
             <form action="check_time.php" method="post">
                 <input type="text" name="time" id="time_to_table" hidden>
-                <input class="left" type="text" name="note" id="" placeholder="หมายเหตุ (ถ้ามี)">
+                <input class="left" style="margin-top: -1rem;" type="text" name="note" id="" placeholder="หมายเหตุ (ถ้ามี)">
                 <button style="margin-left: 3rem;" class="btn btn-info font-25">บันทึก</button>
 
             </form>
@@ -30,7 +31,7 @@
         </tr>
     </table>
     <hr>
-    <h1 style="text-align: center; margin-top: 2rem; margin-bottom: -5rem;"><img src="/asset/img/calendar.svg" alt="calendar" style="width: 4rem;"> ตารางประวัติการลงเวลาปฏิบัติงาน</h1>
+    <h1 style="text-align: center; margin-top: 2rem; "><img src="/asset/img/calendar.svg" alt="calendar" style="width: 4rem;"> ตารางประวัติการลงเวลาปฏิบัติงาน</h1>
 
     <div class="left form-inline" style="display: inline;">
     <table id="example" class="table table-striped table-bordered top" style="width:90% justify-content: center; align-content: center;">
@@ -46,14 +47,14 @@
         </thead>
         <tbody>
         <?php
-        $sql = "SELECT * FROM check_time WHERE username ='".$_SESSION[username]."'";
+        $sql = "SELECT * FROM check_time INNER JOIN checktime_status ON check_time.checkin_status = checktime_status.id  WHERE username ='".$_SESSION[username]."'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $date = $row['date'];
             $checkin_time = $row['checkin_time'];
             $checkout_time = $row['checkout_time'];
-            $checkin_status = $row['checkin_status'];
+            $checkin_status = $row['title'];
             $note1 = $row['note1'];
             $note2 = $row['note2'];
             echo <<< EOD
