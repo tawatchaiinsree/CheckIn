@@ -26,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/asset/img/icon.png" type="image/icon type">
   <link rel="stylesheet" href="/asset/bootstrap4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/user/component/style.css">
+  <link rel="stylesheet" href="/admin/component/style.css">
   <script src="/asset/bootstrap4/js/jquery.min.js"></script>
   <script src="/asset/bootstrap4/js/popper.min.js"></script>
   <script src="/asset/bootstrap4/js/bootstrap.min.js"></script>
@@ -44,5 +44,9 @@
         <li style="float:right"><a href="#" data-toggle="modal" data-target="#ContactModal" style=" font-size: 28px; color: ivory;"><i class="fa fa-phone" aria-hidden="true"></i>ติดต่อเรา <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
         <li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a></li>
   </ul>
+<div class="ul-2">
+      <label style="margin-left: 2%;" class="font-25"><?php echo $_SESSION['pname'].$_SESSION['fname'].' '.$_SESSION['lname']; ?></label>
+  </div>
+
   <div id="page-content-wrapper">
       <div style="width: 98%; height: 100%;">

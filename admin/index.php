@@ -7,6 +7,23 @@
 
 <!------------------------------ BODY -------------------------------->
 
+<form action="" method="post">
+    <label for="user_type">ประเภท </label>
+    <select name="user_type" id="user_type">
+        <?php 
+            $sql = "SELECT * FROM check_time INNER JOIN checktime_status ON check_time.checkin_status = checktime_status.id  WHERE username ='".$_SESSION[username]."'";
+            $result = $conn->query($sql);
+            while($row = $result->fetch_assoc()) {
+
+            }
+            echo <<< EOD
+                <option value="">1</option>
+            EOD;
+        ?>
+        
+    </select>
+</form>
+
     <div class="left form-inline" style="display: inline; margin:auto">
     <input type="text" name="" id="time_to_table" hidden>
     <table id="example" class="table table-striped table-bordered top tb-center top" style="width:90% justify-content: center; align-content: center;">
