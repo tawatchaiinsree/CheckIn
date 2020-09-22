@@ -36,7 +36,7 @@
         <tbody>
             <?php
         $month = ['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายนน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน', 'ธันวาคม'];
-        $sql = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') date, user_type.title user_type, checktime_status.title checktime FROM check_time 
+        $sql = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') date, user_type.title user_type, checktime_status.title checktime, check_time.id CID FROM check_time 
         INNER JOIN checktime_status ON check_time.checkin_status = checktime_status.id 
         INNER JOIN user ON check_time.username = user.username
         INNER JOIN user_type ON user.type = user_type.id";
@@ -53,6 +53,7 @@
                 $note = $note1.$note2;
                 $name = $row['pname'].$row['fname'].' '. $row['lname'];
                 $title = $row['user_type'];
+                $id = $row['CID'];
                 echo <<< EOD
                 <tr>
                     <td>$date</td>
@@ -62,7 +63,8 @@
                     <td>$checkout_time</td>
                     <td>$checkin_status</td>
                     <td>$note</td>
-                    <td></td>
+                    <td><button data-toggle="modal" data-target="#EditModal" class="btn btn-warning" onClick="get_data('$id')"> แก้ไข</button>
+                    </td>
                 </tr>
                 EOD;
             }
@@ -103,11 +105,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="date" class="left">เลือกวันที่เริ่ม: </label>
+                    <label for="date" class="left">วันที่: </label>
                     <input type="date" name="start_date" id="start_date" class="left">
                 </div>
-                <label for="date" class="left">เลือกวันที่สิ้นสุด: </label>
-                <input type="date" name="end_date" id="end_date" class="left">
+                <!-- <label for="date" class="left">เลือกวันที่สิ้นสุด: </label>
+                <input type="date" name="end_date" id="end_date" class="left"> -->
                 <br>
                 <button type="submit" class="left btn btn-warning font-25">ออกรายงาน</button>
                 
@@ -117,6 +119,33 @@
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="EditModal" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="EditModalTitle">แก้ไขข้อมูลการลงเวลา</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="edit_data.php" method="post">
+                <table>
+                    <input class="form-control" type="text" name="id" id="edit_id" hidden>
+                    <tr><td>เวลาเข้างาน</td><td><input class="form-control" type="time" name="checkin" id="checkin"></td></tr>
+                    <tr><td>เวลาออกงาน</td><td><input class="form-control" type="time" name="checkout" id="checkout"></td></tr>
+                    <tr><td>หมายเหตุ(เข้า)</td><td><input class="form-control" type="text" name="note1" id="note1"></td></tr>
+                    <tr><td>หมายเหตุ(ออก)</td><td><input class="form-control" type="text" name="note2" id="note2"></td></tr>
+                </table>             
+                <button type="submit" class="btn btn-success">บันทึก</button>               
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="script.js"></script>
 <script src="/asset/datable.min.js"></script>
 <script src="/asset/datatable.boostrap4.min.js"></script>

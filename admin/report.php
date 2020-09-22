@@ -47,142 +47,70 @@ $table_height = 260;
 $pdf->Image('../asset/img/icon.jpg', 210/2-8, $y-3, $img_w, $img_h, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
 $html2 = '';
 $count = 1;
-	$result = $conn->query("SELECT * FROM check_time 
-	INNER JOIN user ON user.username = check_time.username 
-	INNER JOIN checktime_status ON checktime_status.id = check_time.checkin_status 
-	WHERE check_time.date BETWEEN '2020-09-01' AND '2020-09-30' ORDER BY date");
-	$old_date = '';
-	$count_arr = 0;
+if($_POST['user_type'] != '0'){
+	$result = $conn->query("SELECT *, check_time.id ids, checktime_status.id idc FROM user
+	LEFT JOIN check_time ON user.username = check_time.username
+	LEFT JOIN checktime_status ON checktime_status.id = check_time.checkin_status
+	WHERE check_time.date = '".$_POST['start_date']."' AND user.type = '".$_POST['user_type']."' AND user.permission = 'user'
+	");
+}else{
+	$result = $conn->query("SELECT *, check_time.id ids, checktime_status.id idc FROM user
+	LEFT JOIN check_time ON user.username = check_time.username
+	LEFT JOIN checktime_status ON checktime_status.id = check_time.checkin_status
+	WHERE check_time.date = '".$_POST['start_date']."' AND user.permission = 'user'");
+}
+	$come_count = 0;
+	$no_come_count=0;
+	$late_count = 0;
 	$month = ['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายนน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน', 'ธันวาคม'];
+	$date = explode("-", $_POST['start_date']);
+	$date = intval($date[2]).' '.$month[intval($date[1])].' '.($date[0]+543);
+	$count_arr = 0;
+	$first_id = '';
+	$pdf->SetFont('thsarabun', 'b', 16);
+				$pdf->SetXY($x+13, $y+=$img_h-5);
+				$pdf->Write(0, 'รายงานการลงเวลาปฏิบัติงาน', '', 0, 'C', true, 0, false, false, 0);
+				$pdf->SetXY($x+13, $y+=7);
+				$pdf->Write(0, "สำหรับ$user_type", '', 0, 'C', true, 0, false, false, 0);
+				$pdf->SetXY($x+13, $y+=7);
+				$pdf->Write(0, "วันที่ ".$date, '', 0, 'C', true, 0, false, false, 0);
+				if ($result->num_rows > 0) {
+				$html = '
+				<table border="1" style="text-align:center;">
+					<tr>
+						<th style="width: 10%;"><strong>ลำดับ</strong></th>
+						<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
+						<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
+						<th style="width: 15%;"><strong>เวลาออก</strong></th>
+						<th style="width: 20%;"><strong>สถานะ</strong></th>
+						<th style="width: 15%;"><strong>หมายเหตุ</strong></th>
+					</tr>';
+				}
+					if ($result->num_rows == 0) {
+						$html2 = '<h2>ไม่พบข้อมูล</h2>';
+					}
 	foreach ($result as $key => $value) {$count_arr ++;}
 		foreach ($result as $key => $value) {
-			$date = explode("-", $value['date']);
-			$date = $date[2].' '.$month[intval($date[1])].' '.($date[0]+543);
-			if($key != 0){
-				if($old_date != $value['date']){
-					$html3 = '</table>';
-					$count-=1;
-					$pdf->SetFont('thsarabun', '', 16);
-					$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
-					$summary = "
-				<table style=\"width: 36%;\">
-					<tr>
-						<td>ทั้งหมด</td>
-						<td>$count</td>
-					</tr>
-					<tr>
-						<td>มาปฏิบัติงาน</td>
-						<td>39</td>
-					</tr>
-					<tr>
-						<td>ไม่มา</td>
-						<td>1</td>
-					</tr>
-					<tr>
-						<td>สาย</td>
-						<td>0</td>
-					</tr>
-				</table>	
-				";
-					$pdf->writeHTML($summary, true, false, true, false, '');
-					$pdf->SetFont('thsarabun', 'b', 16);
-					$pdf->SetXY($x+20, $y+42);
-					$pdf->Write(0, "ลงชื่อ ...................................................", '', 0, 'R', true, 0, false, false, 0);
-					$pdf->SetXY($x+20, $y+52);
-					$pdf->Write(0, "(เจ้าพนักงานที่ดินจังหวัดสงขลา)", '', 0, 'R', true, 0, false, false, 0);
-					$html2 = '';
-					$count=1;
-					// หน้าเก่า
-					$pdf->AddPage();
-					$pdf->SetLineStyle(array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
-					$x = 5;
-					$y = 5;
-					$img_h = 26;
-					$img_w = 26;
-					$table_width = 196;
-					$table_height = 260;
-					$pdf->Image('../asset/img/icon.jpg', 210/2-8, $y-3, $img_w, $img_h, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
-
-					$pdf->SetFont('thsarabun', 'b', 16);
-					$pdf->SetXY($x+13, $y+=$img_h-5);
-					$pdf->Write(0, 'รายงานการลงเวลาปฏิบัติงาน', '', 0, 'C', true, 0, false, false, 0);
-					$pdf->SetXY($x+13, $y+=7);
-					$pdf->Write(0, "สำหรับ$user_type", '', 0, 'C', true, 0, false, false, 0);
-					$pdf->SetXY($x+13, $y+=7);
-					$pdf->Write(0, "วันที่ ".$date, '', 0, 'C', true, 0, false, false, 0);
-
-					$html2.= "
-				<tr>
-					<td style=\"width: 10%;\">$count</td>
-					<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
-					<td style=\"width: 15%;\">".$value['checkin_time']."</td>
-					<td style=\"width: 15%;\">".$value['checkout_time']."</td>
-					<td style=\"width: 20%;\">".$value['title']."</td>
-					<td style=\"width: 15%;\">".$value['note1']." ".$value['note2']."</td>
-				</tr>
-				";
-				$count++;
-				$y+=5;
-				}else{
-					$html2.= "
-				<tr>
-					<td style=\"width: 10%;\">$count</td>
-					<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
-					<td style=\"width: 15%;\">".$value['checkin_time']."</td>
-					<td style=\"width: 15%;\">".$value['checkout_time']."</td>
-					<td style=\"width: 20%;\">".$value['title']."</td>
-					<td style=\"width: 15%;\">".$value['note1']." ".$value['note2']."</td>
-				</tr>
-				";
-				$count++;
-				$y+=5;
-				}
-				if($count==31){
-					$html3 = '</table>';
-					$pdf->SetFont('thsarabun', '', 16);
-					$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
-					$html2 = '';
-					$pdf->AddPage();
-					$pdf->SetLineStyle(array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
-					$x = 5;
-					$y = 5;
-					$img_h = 26;
-					$img_w = 26;
-					$table_width = 196;
-					$table_height = 260;
-					$pdf->Image('../asset/img/icon.jpg', 210/2-8, $y-3, $img_w, $img_h, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
-					$pdf->SetFont('thsarabun', 'b', 16);
-					$pdf->SetXY($x+13, $y+=$img_h-5);
-					$pdf->Write(0, 'รายงานการลงเวลาปฏิบัติงาน', '', 0, 'C', true, 0, false, false, 0);
-					$pdf->SetXY($x+13, $y+=7);
-					$pdf->Write(0, "สำหรับ$user_type", '', 0, 'C', true, 0, false, false, 0);
-					$pdf->SetXY($x+13, $y+=7);
-					$pdf->Write(0, "วันที่ ".$date, '', 0, 'C', true, 0, false, false, 0);
-
-					$html = '
-					<table border="1" style="text-align:center;">
-						<tr>
-							<th style="width: 10%;"><strong>ลำดับ</strong></th>
-							<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
-							<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
-							<th style="width: 15%;"><strong>เวลาออก</strong></th>
-							<th style="width: 20%;"><strong>สถานะ</strong></th>
-							<th style="width: 15%;"><strong>หมายเหตุ</strong></th>
-						</tr>';
-					$html2.= "
-					<tr>
-						<td style=\"width: 10%;\">$count</td>
-						<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
-						<td style=\"width: 15%;\">".$value['checkin_time']."</td>
-						<td style=\"width: 15%;\">".$value['checkout_time']."</td>
-						<td style=\"width: 20%;\">".$value['title']."</td>
-						<td style=\"width: 15%;\">".$value['note1']." ".$value['note2']."</td>
-					</tr>
-					";
-					$count++;
-					$y+=5;
-				}
-			}else{
+			if($key == 0){
+				$first_id = $value['ids'];
+			}
+			if($value['idc'] == '2'){
+				$late_count++;
+			}
+			if($count==26){
+				$html3 = '</table>';
+				$pdf->SetFont('thsarabun', '', 16);
+				$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
+				$html2 = '';
+				$pdf->AddPage();
+				$pdf->SetLineStyle(array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+				$x = 5;
+				$y = 5;
+				$img_h = 26;
+				$img_w = 26;
+				$table_width = 196;
+				$table_height = 260;
+				$pdf->Image('../asset/img/icon.jpg', 210/2-8, $y-3, $img_w, $img_h, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
 				$pdf->SetFont('thsarabun', 'b', 16);
 				$pdf->SetXY($x+13, $y+=$img_h-5);
 				$pdf->Write(0, 'รายงานการลงเวลาปฏิบัติงาน', '', 0, 'C', true, 0, false, false, 0);
@@ -201,6 +129,7 @@ $count = 1;
 						<th style="width: 20%;"><strong>สถานะ</strong></th>
 						<th style="width: 15%;"><strong>หมายเหตุ</strong></th>
 					</tr>';
+			}
 				$html2.= "
 				<tr>
 					<td style=\"width: 10%;\">$count</td>
@@ -212,44 +141,83 @@ $count = 1;
 				</tr>
 				";
 				$count++;
+				$come_count++;
 				$y+=5;
-			}
-			$old_date = $value['date'];
-			if($count_arr-1 == $key){
-				$html3 = '</table>';
-				$count-=1;
-				$pdf->SetFont('thsarabun', '', 16);
-				$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
-				$summary = "
-				<table style=\"width: 30%;\">
-					<tr>
-						<td>ทั้งหมด</td>
-						<td>$count</td>
-					</tr>
-					<tr>
-						<td>มาปฏิบัติงาน</td>
-						<td>39</td>
-					</tr>
-					<tr>
-						<td>ไม่มา</td>
-						<td>1</td>
-					</tr>
-					<tr>
-						<td>สาย</td>
-						<td>0</td>
-					</tr>
-				</table>	
-				";
-				$pdf->writeHTML($summary, true, false, true, false, '');
-					$pdf->SetFont('thsarabun', 'b', 16);
-					$pdf->SetXY($x+20, $y+42);
-					$pdf->Write(0, "ลงชื่อ ...................................................", '', 0, 'R', true, 0, false, false, 0);
-					$pdf->SetXY($x+20, $y+52);
-					$pdf->Write(0, "(เจ้าพนักงานที่ดินจังหวัดสงขลา)", '', 0, 'R', true, 0, false, false, 0);
-				$html2 = '';
-				$count=1;
-			}
 		}
+$result = $conn->query("SELECT * FROM user
+RIGHT JOIN check_time ON check_time.username != user.username
+WHERE user.permission = 'user' AND check_time.id = '$first_id'");
+foreach ($result as $key => $value) {
+	if($count==26){
+		$html3 = '</table>';
+		$pdf->SetFont('thsarabun', '', 16);
+		$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
+		$html2 = '';
+		$pdf->AddPage();
+		$pdf->SetLineStyle(array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+		$x = 5;
+		$y = 5;
+		$img_h = 26;
+		$img_w = 26;
+		$table_width = 196;
+		$table_height = 260;
+		$pdf->Image('../asset/img/icon.jpg', 210/2-8, $y-3, $img_w, $img_h, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
+		$pdf->SetFont('thsarabun', 'b', 16);
+		$pdf->SetXY($x+13, $y+=$img_h-5);
+		$pdf->Write(0, 'รายงานการลงเวลาปฏิบัติงาน', '', 0, 'C', true, 0, false, false, 0);
+		$pdf->SetXY($x+13, $y+=7);
+		$pdf->Write(0, "สำหรับ$user_type", '', 0, 'C', true, 0, false, false, 0);
+		$pdf->SetXY($x+13, $y+=7);
+		$pdf->Write(0, "วันที่ ".$date, '', 0, 'C', true, 0, false, false, 0);
+
+		$html = '
+		<table border="1" style="text-align:center;">
+			<tr>
+				<th style="width: 10%;"><strong>ลำดับ</strong></th>
+				<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
+				<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
+				<th style="width: 15%;"><strong>เวลาออก</strong></th>
+				<th style="width: 20%;"><strong>สถานะ</strong></th>
+				<th style="width: 15%;"><strong>หมายเหตุ</strong></th>
+			</tr>';
+	}
+	$html2.= "
+	<tr>
+		<td style=\"width: 10%;\">$count</td>
+		<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
+		<td style=\"width: 15%;\">-</td>
+		<td style=\"width: 15%;\">-</td>
+		<td style=\"width: 20%;\">-</td>
+		<td style=\"width: 15%;\"></td>
+	</tr>
+	";
+	$count++;
+	$no_come_count++;
+	$y+=5;
+}
+
+$html3 = '</table>';
+$count-=1;
+$pdf->SetFont('thsarabun', '', 16);
+$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
+if ($result->num_rows > 0) {
+$summary = "
+<table style=\"width: 30%;\">
+<tr><td>ทั้งหมด</td><td>$count</td></tr><tr>
+<td>มาปฏิบัติงาน</td><td>$come_count</td></tr><tr>
+<td>ไม่มา</td><td>$no_come_count</td></tr><tr>
+<td>สาย</td><td>$late_count</td></tr>
+</table>	
+";
+$pdf->writeHTML($summary, true, false, true, false, '');
+	$pdf->SetFont('thsarabun', 'b', 16);
+	$pdf->SetXY($x+20, $y+42);
+	$pdf->Write(0, "ลงชื่อ ...................................................", '', 0, 'R', true, 0, false, false, 0);
+	$pdf->SetXY($x+20, $y+52);
+	$pdf->Write(0, "(เจ้าพนักงานที่ดินจังหวัดสงขลา)", '', 0, 'R', true, 0, false, false, 0);
+}
+$html2 = '';
+$count=1;
 
 date_default_timezone_set("Asia/Bangkok");
 $pdf->Output('report'.date("Y-m-d H:i").'.pdf', 'I');
