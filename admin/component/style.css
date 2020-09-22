@@ -84,9 +84,14 @@
 
 .center-block {
   display: block;
-  /* margin-right: 30%; */
-  /* margin-left: 30%; */
   font-size: 25px;
+  align-content: center;
+  text-align: center;
+  margin: auto;
+}
+
+.center-block-2 {
+  display: block;
   align-content: center;
   text-align: center;
   margin: auto;
@@ -105,6 +110,10 @@ body, i, button {
 .font-25{
   font-family: myFirstFont;
   font-size: 25px;
+}
+.font-32{
+  font-family: myFirstFont;
+  font-size: 32px;
 }
 
 .tb-center{
@@ -156,7 +165,8 @@ li a:hover:not(.active) {
 }
 
 .report{
-  margin-top: 1%;
+  /* margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 2%;
+  margin-left: 2%; */
+  float: right;
 }

@@ -9,4 +9,9 @@ function update_time(){
 
 $(document).ready(function() {
   $('#example').DataTable();
+  const startOfMonth = moment().startOf('month').format('YYYY-MM-DD');
+  const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+  document.getElementById('start_date').value = startOfMonth;
+  document.getElementById('end_date').value = endOfMonth;
+  // console.log(startOfMonth, endOfMonth)
 } );
