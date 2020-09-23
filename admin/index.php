@@ -3,6 +3,34 @@
     require_once('component/header.php');
     require("../config/mysql_connect.php");
     require_once("../check_admin.php");
+    $result = $conn->query("SELECT *, check_time.id ids, checktime_status.id idc FROM user
+	LEFT JOIN check_time ON user.username = check_time.username
+	LEFT JOIN checktime_status ON checktime_status.id = check_time.checkin_status
+    WHERE check_time.date = '".date("Y-m-d")."' AND user.permission = 'user'");
+    $come_count = 0;
+	$no_come_count = 0;
+    $late_count = 0;
+    $count = 0;
+    foreach ($result as $key => $value) {
+        if($key == 0){
+            $first_id = $value['ids'];
+        }
+        if($value['idc'] == '2'){
+            $late_count++;
+        }
+        $count++;
+        $come_count++;
+    }
+    $result = $conn->query("SELECT * FROM user
+RIGHT JOIN check_time ON check_time.username != user.username
+WHERE user.permission = 'user' AND check_time.id = '$first_id'");
+foreach ($result as $key => $value) {
+    $count++;
+    $no_come_count++;
+}
+if($come_count == 0){
+    $no_come_count = $count;
+}
 ?>
 
 <!------------------------------ BODY -------------------------------->
@@ -12,10 +40,49 @@
         <h2><img src="/asset/img/report.png" alt="calendar" style="width: 2rem;">ออกรายงาน</h2>
     </a>
 </div> -->
+<div style="justify-content: center; align-content: center;">
+    <h1 style="text-align: center" id="show_thaidate">สถานะพนักงานทั้งหมด</h1>
+</div>
+<div class="row top">
 
-<label  class="center-block-2 font-32"><img src="/asset/img/calendar.svg" alt="calendar" style="width: 4rem;">ตารางข้อมูลการลงเวลาปฏิบัติงานของข้าราชการ</label> 
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">พนักงานทั้งหมด</h1>
+                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $count; ?> คน</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">พนักงานที่มาทำงาน</h1>
+                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $come_count; ?> คน</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">พนักงานที่ไม่มาทำงาน</h1>
+                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $no_come_count; ?> คน</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">พนักงานที่เข้างานสาย</h1>
+                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $late_count; ?> คน</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<label class="center-block-2 font-32 top"><img src="/asset/img/calendar.svg" alt="calendar"
+        style="width: 4rem;">ตารางข้อมูลการลงเวลาปฏิบัติงานของข้าราชการ</label>
 <div class="left form-inline" style="display: inline; margin:auto; margin-top: 1%;">
-<a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="report">
+    <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="report">
         <label><img src="/asset/img/report.png" alt="calendar" style="width: 3rem;">ออกรายงาน</label>
     </a>
     <input type="text" name="" id="time_to_table" class="margin-top: 1rem;" hidden>
@@ -86,12 +153,12 @@
                 </button>
             </div>
             <div class="modal-body">
-            <form action="report.php" method="post" target="_blank">
-                <div class="form-group">
-                    <label for="user_type">เลือกประเภทพนักงาน </label>
-                    <select name="user_type" id="user_type" class="left form-group">
-                        <option value="0">ทั้งหมด</option>
-                        <?php 
+                <form action="report.php" method="post" target="_blank">
+                    <div class="form-group">
+                        <label for="user_type">เลือกประเภทพนักงาน </label>
+                        <select name="user_type" id="user_type" class="left form-group">
+                            <option value="0">ทั้งหมด</option>
+                            <?php 
                 $sql = "SELECT * FROM `user_type`";
                 $result = $conn->query($sql);
                 while($row = $result->fetch_assoc()) {
@@ -102,18 +169,18 @@
                 EOD;
                 }
             ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="date" class="left">วันที่: </label>
-                    <input type="date" name="start_date" id="start_date" class="left">
-                </div>
-                <!-- <label for="date" class="left">เลือกวันที่สิ้นสุด: </label>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="left">วันที่: </label>
+                        <input type="date" name="start_date" id="start_date" class="left">
+                    </div>
+                    <!-- <label for="date" class="left">เลือกวันที่สิ้นสุด: </label>
                 <input type="date" name="end_date" id="end_date" class="left"> -->
-                <br>
-                <button type="submit" class="left btn btn-warning font-25">ออกรายงาน</button>
-                
-            </form>
+                    <br>
+                    <button type="submit" class="left btn btn-warning font-25">ออกรายงาน</button>
+
+                </form>
             </div>
         </div>
     </div>
@@ -128,19 +195,31 @@
             <div class="modal-header">
                 <h3 class="modal-title" id="EditModalTitle">แก้ไขข้อมูลการลงเวลา</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">X</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form action="edit_data.php" method="post">
-                <table>
-                    <input class="form-control" type="text" name="id" id="edit_id" hidden>
-                    <tr><td>เวลาเข้างาน</td><td><input class="form-control" type="time" name="checkin" id="checkin"></td></tr>
-                    <tr><td>เวลาออกงาน</td><td><input class="form-control" type="time" name="checkout" id="checkout"></td></tr>
-                    <tr><td>หมายเหตุ(เข้า)</td><td><input class="form-control" type="text" name="note1" id="note1"></td></tr>
-                    <tr><td>หมายเหตุ(ออก)</td><td><input class="form-control" type="text" name="note2" id="note2"></td></tr>
-                </table>             
-                <button type="submit" class="btn btn-success">บันทึก</button>               
+                    <table>
+                        <input class="form-control" type="text" name="id" id="edit_id" hidden>
+                        <tr>
+                            <td>เวลาเข้างาน</td>
+                            <td><input class="form-control" type="time" name="checkin" id="checkin"></td>
+                        </tr>
+                        <tr>
+                            <td>เวลาออกงาน</td>
+                            <td><input class="form-control" type="time" name="checkout" id="checkout"></td>
+                        </tr>
+                        <tr>
+                            <td>หมายเหตุ(เข้า)</td>
+                            <td><input class="form-control" type="text" name="note1" id="note1"></td>
+                        </tr>
+                        <tr>
+                            <td>หมายเหตุ(ออก)</td>
+                            <td><input class="form-control" type="text" name="note2" id="note2"></td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-success">บันทึก</button>
                 </form>
             </div>
         </div>

@@ -9,7 +9,7 @@
         $type = $_SESSION['type'];
         $email = $_SESSION['email'];
         $phone = $_SESSION['phone'];
-        $sql = "SELECT COUNT(username) count FROM contact_admin WHERE username = 'test' AND reply_status = '1'";
+        $sql = "SELECT COUNT(username) count FROM contact_admin WHERE username = 'test' AND reply_status = '0'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -39,14 +39,86 @@
 <body>
   <ul class="ul">
     <li><img src="../../asset/img/icon.png" alt="icon" style="width: 5rem;">
-    <label style="font-size: 32px;color: ivory; margin-top: 0.75rem;">สำนักงานที่ดินจังหวัดสงขลา</label></li>
-        <li style="float:right"><a href="/logout.php" style="color: ivory;"><button class="btn btn-danger font-25"><i class="fa fa-power-off" aria-hidden="true"></i>ออกจากระบบ</button></a></li>
-        <li style="float:right"><a href="#" data-toggle="modal" data-target="#ContactModal" style=" font-size: 28px; color: ivory;"><i class="fa fa-phone" aria-hidden="true"></i>ติดต่อเรา <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
-        <li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a></li>
+      <label style="font-size: 32px;color: ivory; margin-top: 0.75rem;">สำนักงานที่ดินจังหวัดสงขลา</label></li>
+    <li style="float:right"><a href="/logout.php" style="color: ivory;"><button class="btn btn-danger font-25"><i
+            class="fa fa-power-off" aria-hidden="true"></i>ออกจากระบบ</button></a></li>
+    <li style="float:right"><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"
+        style=" font-size: 28px; color: ivory;"><i class="fa fa-inbox right" aria-hidden="true"></i>ข้อความ <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
+    <li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home"
+          aria-hidden="true"></i>หน้าหลัก</a></li>
   </ul>
-<div class="ul-2">
-      <label style="margin-left: 2%;" class="font-25"><?php echo $_SESSION['pname'].$_SESSION['fname'].' '.$_SESSION['lname']; ?></label>
+  <div class="ul-2">
+    <label style="margin-left: 2%;"
+      class="font-25"><?php echo $_SESSION['pname'].$_SESSION['fname'].' '.$_SESSION['lname']; ?></label>
   </div>
 
   <div id="page-content-wrapper">
-      <div style="width: 98%; height: 100%;">
+    <div style="width: 100%; height: 100%;">
+
+      <!-- Modal -->
+      <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="EditModalTitle">กล่องข้อความ</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class="modal-body" style="overflow: scroll;">
+              <ul class="list-group">
+                <?php
+                $sql = "SELECT * FROM contact_admin INNER JOIN user ON user.username = contact_admin.username ORDER BY reply_status";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                      $id = $row['id'];
+                      $subject = $row['subject'];
+                      $detail = $row['detail'];
+                      $reply_status = $row['reply_status'];
+                      $reply_msg = $row['reply_msg'];
+                      $name = $row['pname'].$row['fname'].' '.$row['lname'];
+
+                      echo <<< EOD
+                      <li onClick="get_contact($id)" data-toggle="modal" data-target="#replyModal" class="list-group-item"><strong>$subject</strong> จาก <label>$name</label>
+                      EOD;
+                      if($reply_status == '0'){
+                        echo "<span class=\"badge badge-danger\">ใหม่</span></li>";
+                      }
+                      if($reply_status == '1' && $reply_msg == NULL){
+                        echo "<span class=\"badge badge-warning\">อ่านแล้ว</span></li>";
+                      }if($reply_status == '1' && $reply_msg != NULL){
+                        echo "<span class=\"badge badge-success\">ตอบแล้ว</span></li>";
+                      }
+                    }
+                  }
+                ?>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="EditModalTitle">กล่องข้อความ</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class="modal-body">
+                  <form action="edit_contact.php" method="post">
+                     <input type="text" class="form-control" name="id" id="id" hidden>
+                      <h2>หัวเรื่องที่ติดต่อ:</h2> <p id="subject"></p>
+                      <hr>
+                      <h2>ข้อมูลที่ติดต่อ:</h2> <p id="detail"></p>
+                      <hr>
+                    <h2>ตอบกลับ:</h2>
+                   <textarea class="form-control" name="reply_msg" id="reply_msg" cols="20" rows="5"></textarea>
+                   <br>
+                   <button type="submit" class="btn btn-success btn-lg">ตอบกลับ</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>

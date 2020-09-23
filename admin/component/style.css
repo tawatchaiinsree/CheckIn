@@ -1,6 +1,9 @@
 .left{
       margin-left: 1rem;
     }
+    .right{
+      margin-right: 0.5rem;
+    }
 .top{
       margin-top: 1rem;
     }
