@@ -32,30 +32,28 @@
 </head>
 
 <body>
-    <div class="container">
         <div class="card">
             <div class="card-header">
-                <img src="/asset/img/icon.png" class="rounded mx-auto d-block" style="width: 20rem;">
+                <img src="/asset/img/icon.png" class="rounded mx-auto d-block" style="width: 30%;">
                 <h2 style="text-align:center; "> สำนักงานที่ดินจังหวัดสงขลา</h2>
             </div>
             <div class="card-body center-block">
                 <h3 style="text-align:center; ">ลงทะเบียนใช้งานระบบ</h3>
                 <form action="/upload.php" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                     <div class="form-group">
-                        <label for="username">ชื่อผู้ใช้งานสำหรับเข้าสู่ระบบ (Username):</label>
-                        <input type="text" class="form-control col-12" id="username" minlength="4"
-                            placeholder="กรอกชื่อผู้ใช้งาน" name="username" required>
-                        <div class="invalid-feedback">กรุณาระบุชื่อผู้ใช้ของท่าน (อย่างน้อย 4 ตัวอักษร)</div>
+                        <label for="username">ชื่อผู้ใช้งานสำหรับเข้าสู่ระบบ (เลขบัตรประจำตัวประชาชน):</label>
+                        <input type="text" maxlength="13" minlength="13" class="form-control col-12" id="username" minlength="4"
+                            placeholder="กรอกชื่อผู้ใช้งาน" name="username" pattern="\d*" required>
+                        <div class="invalid-feedback">กรุณาระบุชื่อผู้ใช้เป็นเลขบัตรประจำตัวประชาชน 13 หลัก (ตัวเลขเท่านั้น)</div>
                     </div>
                     <div class="form-group">
-                        <label for="pwd">รหัสผ่านสำหรับเข้าสู่ระบบ (Password):</label>
-                        <input type="password" class="form-control col-12" id="pwd" minlength="8" placeholder="กรุณาระบุรหัสผ่านของท่าน (อย่างน้อย 8 ตัวอักษร)" name="password" required>
-                        <div class="invalid-feedback">กรุณาระบุรหัสผ่านของท่าน (อย่างน้อย 8 ตัวอักษร)</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwds">ยืนยันรหัสผ่านอีกครั้ง:</label>
-                        <input type="password" class="form-control col-12" id="pwds" minlength="8" placeholder="กรุณาระบุรหัสผ่านของท่านให้ตรงกับรหัสผ่านก่อนหน้านี้" name="passwords" required>
-                        <div class="invalid-feedback">กรุณาระบุรหัสผ่านของท่านให้ตรงกับรหัสผ่านก่อนหน้านี้</div>
+                        <label>รหัสผ่าน</label>
+                        <div class="input-group" id="show_hide_password">
+                        <input class="form-control" type="password" name="password" placeholder="กรุณาระบุรหัสผ่านของท่าน" required>
+                        <div class="input-group-addon" style="padding: 0.5rem;">
+                            <a href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="pname">คำนำหน้าชื่อ:</label>
@@ -114,17 +112,17 @@
                     <br>
                     <br>
                     <button style="text-align:center;" type="submit" class="btn btn-primary">ลงทะเบียน</button>
-                    <a href="../login">กลับไปหน้าเข้าสู่ระบบ คลิ๊กที่นี่</a>
+                    <!-- <a href="../login">กลับไปหน้าเข้าสู่ระบบ คลิ๊กที่นี่</a> -->
                 </form>
             </div>
         </div>
-    </div>
     </div>
 <script>
   var prefix = "<?php echo $opt; ?>";
   prefix = prefix.split(','); 
 </script>
 <script src="./script.js"></script>
+<script src="https://use.fontawesome.com/b9bdbd120a.js"></script>
 </body>
 </html>
 <script>

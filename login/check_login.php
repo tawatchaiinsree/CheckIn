@@ -4,7 +4,7 @@
     // print_r($_POST);
 
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
+    $password = $_POST['password'];
 
     $sql = "SELECT * FROM `user` 
     INNER JOIN `user_type` ON user.type = user_type.id 

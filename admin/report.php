@@ -6,8 +6,8 @@ session_start();
 $pdf = new TCPDF('P', 'mm', array('210', '297'), true, 'UTF-8', false);
 
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Tawatchai Insree');
-$pdf->SetTitle('Result of serial of wiplux by Tawatchai');
+$pdf->SetAuthor('');
+$pdf->SetTitle('Report');
 $pdf->SetSubject('');
 $pdf->SetKeywords('');
 
@@ -201,22 +201,27 @@ $count-=1;
 $pdf->SetFont('thsarabun', '', 16);
 $pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
 if ($result->num_rows > 0) {
-	$count = $count-$come_count;
-	$no_come_count = $no_come_count-$come_count;
+	$count = $count-$come_count+1;
+	$no_come_count = $no_come_count-$come_count+1;
 $summary = "
-<table style=\"width: 30%;\">
-<tr><td>ทั้งหมด</td><td>$count</td></tr><tr>
-<td>มาปฏิบัติงาน</td><td>$come_count</td></tr><tr>
-<td>ไม่มา</td><td>$no_come_count</td></tr><tr>
-<td>สาย</td><td>$late_count</td></tr>
+<table style=\"width: 40%;\">
+<tr><td style=\"width: 50%;\">ข้าราชการทั้งหมด</td><td style=\"width: 30%;\">$count</td><td style=\"width: 20%;\">คน</td></tr>
+<tr><td>อัตราว่าง</td><td>............</td><td>คน</td></tr>
+<tr><td>ยืมตัวมาช่วยราชการ</td><td>............</td><td>คน</td></tr>
+<tr><td>มาปฏิบัติราชการ</td><td>$come_count</td><td>คน</td></tr>
+<tr><td>ไม่มา</td><td>$no_come_count</td><td>คน</td></tr>
+<tr><td>มาสาย</td><td>$late_count</td><td>คน</td></tr>
+<tr><td>ไปราชการ</td><td>............</td><td>คน</td></tr>
 </table>	
 ";
 $pdf->writeHTML($summary, true, false, true, false, '');
 	$pdf->SetFont('thsarabun', 'b', 16);
 	$pdf->SetXY($x+20, $y+42);
 	$pdf->Write(0, "ลงชื่อ ...................................................", '', 0, 'R', true, 0, false, false, 0);
-	$pdf->SetXY($x+20, $y+52);
-	$pdf->Write(0, "(เจ้าพนักงานที่ดินจังหวัดสงขลา)", '', 0, 'R', true, 0, false, false, 0);
+	$pdf->SetXY($x+150, $y+47);
+	$pdf->Write(0, "(นายสิทธิพล อะหมะ)", '', 0, 'L', true, 0, false, false, 0);
+	$pdf->SetXY($x+15, $y+52);
+	$pdf->Write(0, "เจ้าพนักงานที่ดินจังหวัดสงขลา", '', 0, 'R', true, 0, false, false, 0);
 }
 $html2 = '';
 $count=1;

@@ -49,7 +49,7 @@ if($come_count == 0){
         <div class="card">
             <div class="card-body">
                 <h1 class="card-title">พนักงานทั้งหมด</h1>
-                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $count-$come_count; ?> คน</h2>
+                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $count-$come_count+1; ?> คน</h2>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@ if($come_count == 0){
         <div class="card">
             <div class="card-body">
                 <h1 class="card-title">พนักงานที่ไม่มาทำงาน</h1>
-                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $no_come_count-$come_count; ?> คน</h2>
+                <h2 class="card-subtitle mb-2 text-muted">จำนวน <?php echo $no_come_count-$come_count+1; ?> คน</h2>
             </div>
         </div>
     </div>
@@ -149,7 +149,7 @@ if($come_count == 0){
             <div class="modal-header">
                 <h3 class="modal-title" id="exampleModalCenterTitle">ตัวเลือกการออกรายงาน</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">x</span>
                 </button>
             </div>
             <div class="modal-body">

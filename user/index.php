@@ -21,10 +21,17 @@
         <?php
         $sql = "SELECT * FROM check_time  WHERE username ='".$_SESSION[username]."' AND `date`='".date("Y-m-d")."'";
         $result = $conn->query($sql);
-        while($row = $result->fetch_assoc()) {
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo '
+                <td><input type="text" name="checkin" value="'.$row['checkin_time'].' น." readonly style="text-align:center;"></td>
+                <td><input type="text" name="checkout" class="left" value="'.$row['checkout_time'].' น." readonly style="text-align:center;"></td>
+                ';
+            }
+        }else{
             echo '
-            <td><input type="text" name="checkin" value="'.$row['checkin_time'].' น." readonly style="text-align:center;"></td>
-            <td><input type="text" name="checkout" class="left" value="'.$row['checkout_time'].' น." readonly style="text-align:center;"></td>
+            <td><input type="text" name="checkin" value="-" readonly style="text-align:center;"></td>
+            <td><input type="text" name="checkout" class="left" value="-" readonly style="text-align:center;"></td>
             ';
         }
         ?>
