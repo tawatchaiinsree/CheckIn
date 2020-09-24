@@ -17,9 +17,17 @@
             <td>หมายเหตุ</td>
         </tr>
         <tr>
-            <td><input type="text" name="checkin" value="08:30 น." readonly style="text-align:center;"></td>
-            <td><input type="text" name="checkout" class="left" value="16:30 น." readonly style="text-align:center;"></td>
-            
+
+        <?php
+        $sql = "SELECT * FROM check_time  WHERE username ='".$_SESSION[username]."' AND `date`='".date("Y-m-d")."'";
+        $result = $conn->query($sql);
+        while($row = $result->fetch_assoc()) {
+            echo '
+            <td><input type="text" name="checkin" value="'.$row['checkin_time'].' น." readonly style="text-align:center;"></td>
+            <td><input type="text" name="checkout" class="left" value="'.$row['checkout_time'].' น." readonly style="text-align:center;"></td>
+            ';
+        }
+        ?>
             <td>
             <form action="check_time.php" method="post">
                 <input type="text" name="time" id="time_to_table" hidden>

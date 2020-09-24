@@ -82,7 +82,7 @@ if($come_count == 0){
 <label class="center-block-2 font-32 top"><img src="/asset/img/calendar.svg" alt="calendar"
         style="width: 4rem;">ตารางข้อมูลการลงเวลาปฏิบัติงานของข้าราชการ</label>
 <div class="left form-inline" style="display: inline; margin:auto; margin-top: 1%;">
-    <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="report">
+    <a href="#" data-toggle="modal" data-target="#reportModal" class="report">
         <label><img src="/asset/img/report.png" alt="calendar" style="width: 3rem;">ออกรายงาน</label>
     </a>
     <input type="text" name="" id="time_to_table" class="margin-top: 1rem;" hidden>
@@ -142,7 +142,7 @@ if($come_count == 0){
 </div>
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+<div class="modal fade bd-example-modal-lg" id="reportModal" tabindex="-1" role="dialog"
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

@@ -201,6 +201,8 @@ $count-=1;
 $pdf->SetFont('thsarabun', '', 16);
 $pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
 if ($result->num_rows > 0) {
+	$count = $count-$come_count;
+	$no_come_count = $no_come_count-$come_count;
 $summary = "
 <table style=\"width: 30%;\">
 <tr><td>ทั้งหมด</td><td>$count</td></tr><tr>
