@@ -10,3 +10,19 @@ function update_time(){
 $(document).ready(function() {
   $('#example').DataTable();
 } );
+
+function get_contact(id){
+  console.log(id);
+  $.post("get_contact.php",
+  {
+    id: id,
+  },
+  function(data,status){
+    if(status === 'success'){
+      var data = JSON.parse(data);
+      document.getElementById('detail').innerHTML = data.detail;
+      document.getElementById('subject').innerHTML = data.subject;
+      document.getElementById('reply_msg').innerHTML = data.reply_msg;
+    }
+  });
+}

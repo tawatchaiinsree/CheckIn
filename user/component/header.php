@@ -41,7 +41,8 @@
     <li><img src="../../asset/img/icon.png" alt="icon" style="width: 5rem;">
     <label style="font-size: 32px;color: ivory; margin-top: 0.75rem;">สำนักงานที่ดินจังหวัดสงขลา</label></li>
         <li style="float:right"><a href="/logout.php" style="margin-left: 2rem;color: ivory;"><button class="btn btn-danger font-25"><i class="fa fa-power-off" aria-hidden="true"></i>ออกจากระบบ</button></a></li>
-        <li style="float:right"><a href="#" data-toggle="modal" data-target="#ContactModal" style="margin-left: 2rem; font-size: 28px; color: ivory;"><i class="fa fa-phone" aria-hidden="true"></i>ติดต่อเรา <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
+        <li style="float:right"><a href="#" data-toggle="modal" data-target="#inbox" style=" font-size: 28px; color: ivory;"><i class="fa fa-inbox right" aria-hidden="true"></i>ข้อความ <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
+        <li style="float:right"><a href="#" data-toggle="modal" data-target="#ContactModal" style="margin-left: 2rem; font-size: 28px; color: ivory;"><i class="fa fa-phone" aria-hidden="true"></i>ติดต่อเรา</a></li>
         <li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a></li>
   </ul>
   <div id="page-content-wrapper">
@@ -73,7 +74,7 @@
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalCenterTitle">แก้ไขข้อมูลส่วนตัว</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">x</span>
               </button>
             </div>
             <form action="edit_detail.php" method="post">
@@ -134,7 +135,7 @@
                 <div class="modal-header">
                   <h2 class="modal-title" id="ContactModalLabel">ติดต่อผู้ดูแลระบบ</h2>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">x</span>
                   </button>
                 </div>
                 <div class="modal-body">
@@ -159,3 +160,36 @@
             </div>
           </div>
         </form>
+
+         <!-- Modal -->
+      <div class="modal fade bd-example-modal-lg" id="inbox" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="EditModalTitle">กล่องข้อความ</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class="modal-body" style="overflow: scroll;">
+              <ul class="list-group">
+                <?php
+                $sql = "SELECT * FROM contact_admin INNER JOIN user ON user.username = contact_admin.username WHERE user.username = '$username'";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                      $id = $row['id'];
+                      $subject = $row['subject'];
+                      $detail = $row['detail'];
+                      $reply_status = $row['reply_status'];
+                      $reply_msg = $row['reply_msg'];
+                      echo <<< EOD
+                      <li class="list-group-item"><label>หัวข้อ:</label> $subject <h3>ข้อความตอบกลับ:</h3> $reply_msg</li>
+                      EOD;
+                    }
+                  }
+                ?>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
