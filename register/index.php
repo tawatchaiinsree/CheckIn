@@ -42,8 +42,8 @@
                 <form action="/upload.php" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                     <div class="form-group">
                         <label for="username">ชื่อผู้ใช้งานสำหรับเข้าสู่ระบบ (เลขบัตรประจำตัวประชาชน):</label>
-                        <input type="text" maxlength="13" minlength="13" class="form-control col-12" id="username" minlength="4"
-                            placeholder="กรอกชื่อผู้ใช้งาน" name="username" pattern="\d*" required>
+                        <input type="text" maxlength="13" minlength="13" pattern="\d*" class="form-control col-12" id="username" minlength="4"
+                            placeholder="กรอกชื่อผู้ใช้งาน" name="username" required>
                         <div class="invalid-feedback">กรุณาระบุชื่อผู้ใช้เป็นเลขบัตรประจำตัวประชาชน 13 หลัก (ตัวเลขเท่านั้น)</div>
                     </div>
                     <div class="form-group">
@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">หมายเลขโทรศัพท์มือถือ 10 หลัก:</label>
-                        <input type="text" class="form-control col-12" id="phone" placeholder="หมายเลขโทรศัพท์มือถือ" name="phone" required>
+                        <input type="text" class="form-control col-12" id="phone" maxlength="10" minlength="10" pattern="\d*" placeholder="หมายเลขโทรศัพท์มือถือ" name="phone" required>
                         <div class="invalid-feedback">กรุณาระบุตำแหน่งของท่าน</div>
                     </div>
                     
