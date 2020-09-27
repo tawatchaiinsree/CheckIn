@@ -23,9 +23,14 @@
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
+                if($row['checkout_time'] === NULL){
+                    $ckeckout = 'ยังไม่ออกงาน';
+                }else{
+                    $checkout = $row['checkout_time'].' น.';
+                }
                 echo '
                 <td><input type="text" name="checkin" value="'.$row['checkin_time'].' น." readonly style="text-align:center;"></td>
-                <td><input type="text" name="checkout" class="left" value="'.$row['checkout_time'].' น." readonly style="text-align:center;"></td>
+                <td><input type="text" name="checkout" class="left" value="'.$ckeckout.'" readonly style="text-align:center;"></td>
                 ';
             }
         }else{
@@ -49,8 +54,8 @@
     <h1 style="text-align: center; margin-top: 2rem; "><img src="/asset/img/calendar.svg" alt="calendar" style="width: 4rem;"> ตารางประวัติการลงเวลาปฏิบัติงาน</h1>
 
     <div class="left form-inline" style="display: inline;">
-    <table id="example" class="table table-striped table-bordered top" style="width:90% justify-content: center; align-content: center;">
-        <thead>
+    <table id="example" class="table table-striped table-bordered top display" style="width:90% justify-content: center; align-content: center;">
+    <thead>
             <tr style="text-align: center;">
                 <th>วันที่</th>
                 <th>เวลาเข้างาน</th>
@@ -62,11 +67,13 @@
         </thead>
         <tbody>
         <?php
-        $sql = "SELECT * FROM check_time INNER JOIN checktime_status ON check_time.checkin_status = checktime_status.id  WHERE username ='".$_SESSION[username]."'";
+        $month = ['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายนน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน', 'ธันวาคม'];
+        $sql = "SELECT *, DATE_FORMAT(date,'%d/%m/%Y') date FROM check_time INNER JOIN checktime_status ON check_time.checkin_status = checktime_status.id  WHERE username ='".$_SESSION[username]."'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            $date = $row['date'];
+            $date = explode("/", $row['date']);
+            $date = $date[0].' '.$month[intval($date[1])].' '.($date[2]+543);
             $checkin_time = $row['checkin_time'];
             $checkout_time = $row['checkout_time'];
             $checkin_status = $row['title'];

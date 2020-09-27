@@ -7,9 +7,9 @@ function update_time(){
     console.log((moment().add(543, 'year').format('LT')));
 }
 
-$(document).ready(function() {
-  $('#example').DataTable();
-} );
+// $(document).ready(function() {
+//   $('#example').DataTable();
+// } );
 
 function get_contact(id){
   console.log(id);
@@ -26,3 +26,44 @@ function get_contact(id){
     }
   });
 }
+
+function get_contact(id, user){
+  console.log(id);
+  $.post("../admin/get_contact.php",
+  {
+    id: id,
+    user: user
+  },
+  function(data,status){
+    if(status === 'success'){
+      var data = JSON.parse(data);
+      console.log(data);
+      document.getElementById('details').innerHTML = data.detail;
+      document.getElementById('subjects').innerHTML = data.subject;
+      document.getElementById('reply_msg').innerHTML = data.reply_msg;
+    }
+  });
+}
+
+$(document).ready(function() {
+  // Setup - add a text input to each footer cell
+  $('#example thead tr').clone(true).appendTo( '#example thead' );
+  $('#example thead tr:eq(1) th').each( function (i) {
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+
+      $( 'input', this ).on( 'keyup change', function () {
+          if ( table.column(i).search() !== this.value ) {
+              table
+                  .column(i)
+                  .search( this.value )
+                  .draw();
+          }
+      } );
+  } );
+
+  var table = $('#example').DataTable( {
+      orderCellsTop: true,
+      fixedHeader: true
+  } );
+} );

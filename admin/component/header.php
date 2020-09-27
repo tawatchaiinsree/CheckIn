@@ -9,13 +9,13 @@
         $type = $_SESSION['type'];
         $email = $_SESSION['email'];
         $phone = $_SESSION['phone'];
-        $sql = "SELECT COUNT(username) count FROM contact_admin WHERE username = 'test' AND reply_status = '0'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-          $count = $row['count'];
-        }
-      }
+        $sql = "SELECT COUNT(username) count FROM contact_admin WHERE reply_status = '0'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+              $count = $row['count'];
+            }
+          }
 ?>
 <!DOCTYPE html>
 <html lang="en">

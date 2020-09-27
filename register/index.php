@@ -18,7 +18,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>ลงทะเบียน: สำนักงานที่ดินจังหวัดสงขลา</title>
@@ -58,7 +57,7 @@
                     <div class="form-group">
                         <label for="pname">คำนำหน้าชื่อ:</label>
                         <div class="autocomplete" style="width:300px;">
-                            <input id="myInput" type="text" class="form-control" name="prefix" placeholder="คำนำหน้าชื่อ">
+                            <input id="myInput" type="text" class="form-control" name="prefix" placeholder="คำนำหน้าชื่อ" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -98,12 +97,12 @@
                     <div class="form-group">
                         <label for="email">อีเมล:</label>
                         <input type="email" class="form-control col-12" id="email" placeholder="อีเมล" name="email" required>
-                        <div class="invalid-feedback">กรุณาระบุตำแหน่งของท่าน</div>
+                        <div class="invalid-feedback">กรุณาระบุอีเมลของท่าน</div>
                     </div>
                     <div class="form-group">
                         <label for="phone">หมายเลขโทรศัพท์มือถือ 10 หลัก:</label>
                         <input type="text" class="form-control col-12" id="phone" maxlength="10" minlength="10" pattern="\d*" placeholder="หมายเลขโทรศัพท์มือถือ" name="phone" required>
-                        <div class="invalid-feedback">กรุณาระบุตำแหน่งของท่าน</div>
+                        <div class="invalid-feedback">กรุณาระบุหมายเลขโทรศัพท์มือถือของท่าน</div>
                     </div>
                     
                     <label for="fileToUpload">กรุณาอัพโหลดรูปภาพของท่าน</label>

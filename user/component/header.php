@@ -9,7 +9,8 @@
         $type = $_SESSION['type'];
         $email = $_SESSION['email'];
         $phone = $_SESSION['phone'];
-        $sql = "SELECT COUNT(username) count FROM contact_admin WHERE username = '$username' AND reply_status = '1'";
+        $count = 0;
+        $sql = "SELECT COUNT(username) count FROM contact_admin WHERE username = '$username' AND reply_status = '1' AND readstatus = '0'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -182,13 +183,46 @@
                       $detail = $row['detail'];
                       $reply_status = $row['reply_status'];
                       $reply_msg = $row['reply_msg'];
-                      echo <<< EOD
-                      <li class="list-group-item"><label>หัวข้อ:</label> $subject <h3>ข้อความตอบกลับ:</h3> $reply_msg</li>
-                      EOD;
+                      $read_status = $row['read_status'];
+                      if($reply_status === '0' && $read_status == '0'){
+                        echo <<< EOD
+                          <li class="list-group-item"><label>หัวข้อ:</label> $subject | <label>รายละเอียด: </label>$detail <span class="badge badge-info">รอตอบกลับ</span></li>
+                        EOD;
+                      }
+                      if($reply_status === '1' && $read_status == '0'){
+                        echo <<< EOD
+                          <li onClick="get_contact($id, 'user')" data-toggle="modal" data-target="#replyModal" class="list-group-item"><label>หัวข้อ:</label> $subject | <label>รายละเอียด: </label>$detail <span class="badge badge-danger">ใหม่</span></li>
+                        EOD;
+                      }
+                      if($reply_status === '1' && $read_status == '1'){
+                        echo <<< EOD
+                          <li onClick="get_contact($id, 'user')" data-toggle="modal" data-target="#replyModal" class="list-group-item"><label>หัวข้อ:</label> $subject | <label>รายละเอียด: </label>$detail <span class="badge badge-default">อ่านแล้ว</span></li>
+                        EOD;
+                      }
                     }
                   }
                 ?>
               </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+              <!-- Modal -->
+      <div class="modal fade bd-example-modal-lg" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="EditModalTitle">กล่องข้อความ</h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class="modal-body">
+                      <h3>หัวเรื่องที่ติดต่อ:</h3> <p id="subjects"></p>
+                      <hr>
+                      <h3>ข้อมูลที่ติดต่อ:</h3> <p id="details"></p>
+                      <hr>
+                    <h3>ข้อความตอบกลับ:</h3>
+                    <p id="reply_msg"></p>
             </div>
           </div>
         </div>

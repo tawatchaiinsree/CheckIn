@@ -11,8 +11,13 @@ $result = $conn->query("SELECT * FROM contact_admin INNER JOIN user ON user.user
                 }';
             }
         }
-$sql = "UPDATE `contact_admin` SET reply_status = '1' WHERE id = '".$_POST['id']."'";
-        if ($conn->query($sql) === TRUE) {
+if($_POST['user'] === 'admin'){
+    $sql = "UPDATE `contact_admin` SET reply_status = '1' WHERE id = '".$_POST['id']."'";
+    if ($conn->query($sql) === TRUE) {}
+}
+if($_POST['user'] === 'user'){
+    $sql = "UPDATE `contact_admin` SET read_status = '1' WHERE id = '".$_POST['id']."'";
+    if ($conn->query($sql) === TRUE) {}
+}
 
-        }
 ?>

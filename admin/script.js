@@ -7,14 +7,14 @@ function update_time(){
     // console.log((moment().add(543, 'year').format('LT')));
 }
 
-$(document).ready(function() {
-  $('#example').DataTable();
-  const startOfMonth = moment().format('YYYY-MM-DD');;
-  const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
-  document.getElementById('start_date').value = startOfMonth;
-  // document.getElementById('end_date').value = endOfMonth;
-  // console.log(startOfMonth, endOfMonth)
-} );
+// $(document).ready(function() {
+//   $('#example').DataTable();
+//   const startOfMonth = moment().format('YYYY-MM-DD');;
+//   const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+//   document.getElementById('start_date').value = startOfMonth;
+//   // document.getElementById('end_date').value = endOfMonth;
+//   // console.log(startOfMonth, endOfMonth)
+// } );
 
 function get_data(id){
   $.post("get_data.php",
@@ -34,10 +34,10 @@ function get_data(id){
 };
 
 function get_contact(id){
-  console.log(id);
   $.post("get_contact.php",
   {
     id: id,
+    user: 'admin'
   },
   function(data,status){
     if(status === 'success'){
@@ -49,3 +49,30 @@ function get_contact(id){
     }
   });
 }
+
+$(document).ready(function() {
+  const startOfMonth = moment().format('YYYY-MM-DD');;
+  const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
+  document.getElementById('start_date').value = startOfMonth;
+  
+  // Setup - add a text input to each footer cell
+  $('#example thead tr').clone(true).appendTo( '#example thead' );
+  $('#example thead tr:eq(1) th').each( function (i) {
+      var title = $(this).text();
+      $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+
+      $( 'input', this ).on( 'keyup change', function () {
+          if ( table.column(i).search() !== this.value ) {
+              table
+                  .column(i)
+                  .search( this.value )
+                  .draw();
+          }
+      } );
+  } );
+
+  var table = $('#example').DataTable( {
+      orderCellsTop: true,
+      fixedHeader: true
+  } );
+} );
