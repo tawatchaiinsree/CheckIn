@@ -51,10 +51,10 @@ function get_contact(id){
 }
 
 $(document).ready(function() {
-  const startOfMonth = moment().format('YYYY-MM-DD');;
+  const startOfMonth = moment().format('YYYY-MM-DD');
   const endOfMonth   = moment().endOf('month').format('YYYY-MM-DD');
   document.getElementById('start_date').value = startOfMonth;
-  
+  document.getElementById('adddate').value = startOfMonth;
   // Setup - add a text input to each footer cell
   $('#example thead tr').clone(true).appendTo( '#example thead' );
   $('#example thead tr:eq(1) th').each( function (i) {

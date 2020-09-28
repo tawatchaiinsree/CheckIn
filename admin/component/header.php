@@ -42,10 +42,9 @@
       <label style="font-size: 32px;color: ivory; margin-top: 0.75rem;">สำนักงานที่ดินจังหวัดสงขลา</label></li>
     <li style="float:right"><a href="/logout.php" style="color: ivory;"><button class="btn btn-danger font-25"><i
             class="fa fa-power-off" aria-hidden="true"></i>ออกจากระบบ</button></a></li>
-    <li style="float:right"><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"
-        style=" font-size: 28px; color: ivory;"><i class="fa fa-inbox right" aria-hidden="true"></i>ข้อความ <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
-    <li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home"
-          aria-hidden="true"></i>หน้าหลัก</a></li>
+    <li style="float:right"><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style=" font-size: 28px; color: ivory;"><i class="fa fa-inbox right" aria-hidden="true"></i>ข้อความ <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
+    <li style="float:right"><a href="#" data-toggle="modal" data-target="#exampleModalCenter" style=" font-size: 28px; color: ivory;"><i class="fa fa-id-card right" aria-hidden="true"></i>แก้ไขข้อมูลส่วนตัว </a></li>
+    <li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a></li>
   </ul>
   <div class="ul-2">
     <label style="margin-left: 2%;"
@@ -119,6 +118,57 @@
                    <button type="submit" class="btn btn-success btn-lg">ตอบกลับ</button>
                   </form>
             </div>
+          </div>
+        </div>
+      </div>
+
+       <!-- Modal -->
+       <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">แก้ไขข้อมูลส่วนตัว</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">x</span>
+              </button>
+            </div>
+            <form action="/user/edit_detail.php" method="post">
+              <input type="text" name="username" id="username" value="<?php echo $username; ?>" hidden>
+              <div class="modal-body font-25">
+                <div class="form-inline">
+                  <label for="pname">คำนำหน้าชื่อ:</label>
+                  <div class="autocomplete" style="width:300px;">
+                    <input id="myInput" type="text" class="form-control left" name="pname"
+                      value="<?php echo $prefix; ?>" placeholder="คำนำหน้าชื่อ">
+                  </div>
+                </div>
+                <div class="form-inline top">
+                  <label for="fname">ชื่อ: </label>
+                  <input type="text" name="fname" id="fname" class="form-control left" placeholder="ระบุชื่อจริง"
+                    value="<?php echo $fname; ?>" required>
+                  <label for="lname" class="left">นามสกุล: </label>
+                  <input type="text" name="lname" id="lname" class="form-control left" placeholder="ระบุชื่อนามสกุล"
+                    value="<?php echo $lname; ?>" required>
+                </div>
+
+                <div class="form-inline top">
+                  <label for="position">ตำแหน่ง: </label>
+                  <input type="text" name="position" id="position" class="form-control left" placeholder="ตำแหน่ง"
+                    value="<?php echo $position; ?>" required>
+                </div>
+
+                <div class="form-inline top">
+                  <label for="email">อีเมล: </label>
+                  <input type="email" name="email" id="email" class="form-control left" placeholder="อีเมล"
+                    value="<?php echo $email; ?>">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>
+                <button type="submit" class="btn btn-success">บันทึกการเปลี่ยนแปลง</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

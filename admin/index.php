@@ -122,10 +122,8 @@ if($come_count == 0){
 <label class="center-block-2 font-32 top"><img src="/asset/img/calendar.svg" alt="calendar"
         style="width: 4rem;">ตารางข้อมูลการลงเวลาปฏิบัติงานของข้าราชการ</label>
 <div class="left form-inline" style="display: inline; margin:auto;">
-    <button class="btn btn-success">เพิ่มข้อมูล</button>
-    <a href="#" data-toggle="modal" style="margin-right: 1rem;" data-target="#reportModal" class="report">
-        <label><img src="/asset/img/report.png" alt="calendar" style="width: 3rem;">ออกรายงาน</label>
-    </a>
+    <a href="#" data-toggle="modal" style="margin-right: 1rem;" data-target="#reportModal" class="report"><label><img src="/asset/img/report.png" alt="calendar" style="width: 3rem;">ออกรายงาน</label></a>
+    <button class="btn btn-success btn-lg" style="float: right; margin-right: 1rem;" data-toggle="modal" data-target="#addModal">เพิ่มข้อมูล</button>
     <input type="text" name="" id="time_to_table" class="margin-top: 1rem;" hidden>
     <table id="example" class="table table-striped table-bordered top tb-center top"
         style="width:90% justify-content: center; align-content: center;">
@@ -171,7 +169,9 @@ if($come_count == 0){
                     <td>$checkout_time</td>
                     <td>$checkin_status</td>
                     <td>$note</td>
-                    <td><button data-toggle="modal" data-target="#EditModal" class="btn btn-warning" onClick="get_data('$id')"> แก้ไข</button>
+                    <td>
+                    <a href="delete.php?id=$id" onclick="return confirm('คุณแน่ใจหรือไม่ที่จะลบข้อมูลนี้?');"><button class="btn btn-danger">ลบ</button></a>
+                    <button data-toggle="modal" data-target="#EditModal" class="btn btn-warning" onClick="get_data('$id')"> แก้ไข</button>
                     </td>
                 </tr>
                 EOD;
@@ -266,6 +266,66 @@ if($come_count == 0){
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="addModalTitle">เพิ่มข้อมูล</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="add_data.php" method="post">
+                    <table>
+                        <input class="form-control" type="text" name="id" id="edit_id" hidden>
+                        <tr>
+                            <td>ข้าราชการ</td>
+                            <td>
+                                <select name="username" id="">
+                                    <?php 
+                                        $sql = "SELECT * FROM `user` WHERE permission = 'user'";
+                                        $result = $conn->query($sql);
+                                        while($row = $result->fetch_assoc()) {
+                                            $name = $row["pname"].$row["fname"]." ".$row["lname"];
+                                            $username = $row["username"];
+                                        echo "<option value=\"$username\">$name</option>";
+                                        }
+                                        ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>วันที่</td>
+                            <td><input class="form-control" type="date" name="date" id="adddate" required></td>
+                        </tr>
+                        <tr>
+                            <td>เวลาเข้างาน</td>
+                            <td><input class="form-control" type="time" name="checkin_time" id="checkin_time" required></td>
+                        </tr>
+                        <tr>
+                            <td>เวลาออกงาน</td>
+                            <td><input class="form-control" type="time" name="checkout_time" id="checkout_time" required></td>
+                        </tr>
+                        <tr>
+                            <td>หมายเหตุ(เข้า)</td>
+                            <td><input class="form-control" type="text" name="note1" id="note1"></td>
+                        </tr>
+                        <tr>
+                            <td>หมายเหตุ(ออก)</td>
+                            <td><input class="form-control" type="text" name="note2" id="note2"></td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="btn btn-success">บันทึก</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="script.js"></script>
 <script src="/asset/datable.min.js"></script>
 <script src="/asset/datatable.boostrap4.min.js"></script>
