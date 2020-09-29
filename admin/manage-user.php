@@ -115,7 +115,8 @@
                         <input type="email" class="form-control col-12"  placeholder="ไม่บังคับ" name="email" id="emails">
                         <div class="invalid-feedback">ไม่บังคับ</div>
                     </div>
-
+                    <label for="fileToUpload">รูปลายเซ็นของบุคลากร</label>
+                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/png">
                     <button style="text-align:center;" type="submit" class="btn btn-primary">บันทึก</button>
                 </form>
             </div>
@@ -195,8 +196,8 @@
                         <div class="invalid-feedback">ไม่บังคับ</div>
                     </div>
                     
-                    <!-- <label for="fileToUpload">กรุณาอัพโหลดรูปภาพของบุคลากร</label>
-                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/*"> -->
+                    <label for="fileToUpload">รูปลายเซ็นของบุคลากร</label>
+                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/png">
                     
                     <button style="text-align:center;" type="submit" class="btn btn-primary">ลงทะเบียน</button>
                     <!-- <a href="../login">กลับไปหน้าเข้าสู่ระบบ คลิ๊กที่นี่</a> -->
