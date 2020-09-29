@@ -3,7 +3,7 @@
     session_start();
 
     $time = $_POST['time'];
-    $user = $_SESSION['username'];
+    $user = $_POST['username'];
     $date = date("Y-m-d");
     $note = $_POST['note'];
 
@@ -18,7 +18,7 @@
                     $checkout = $time;
 
                     if(strtotime($checkin) <= strtotime('08:30') && strtotime($checkout) >= strtotime('16:30')){
-                        $sql = "UPDATE `check_time` SET note2='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //ปกติ
+                        $sql = "UPDATE `check_time` SET note1='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //ปกติ
                         if ($conn->query($sql) === TRUE) {
                             echo "<script>alert('บันทึกเวลาออกงานสำเร็จ');location.replace('/');</script>";
                         }else{
@@ -27,7 +27,7 @@
                         }
                     }
                     else if(strtotime($checkin) > strtotime('08:30') && strtotime($checkout) > strtotime('16:30')){
-                        $sql = "UPDATE `check_time` SET note2='$note', checkin_status ='2' WHERE username = '$user' AND `date` = '$date'"; //เข้าสาย
+                        $sql = "UPDATE `check_time` SET note1='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //เข้าสาย
                         if ($conn->query($sql) === TRUE) {
                             echo "<script>alert('บันทึกเวลาออกงานสำเร็จ');location.replace('/');</script>";
                         }else{
@@ -35,7 +35,7 @@
                         }
                     }
                     else if(strtotime($checkin) < strtotime('08:30') && strtotime($checkout) < strtotime('16:30')){
-                        $sql = "UPDATE `check_time` SET note2='$note', checkin_status ='3' WHERE username = '$user' AND `date` = '$date'"; //ออกก่อน
+                        $sql = "UPDATE `check_time` SET note1='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //ออกก่อน
                         if ($conn->query($sql) === TRUE) {
                             echo "<script>alert('บันทึกเวลาออกงานสำเร็จ');location.replace('/');</script>";
                         }else{
@@ -43,7 +43,7 @@
                         }
                     }
                     else if(strtotime($checkin) > strtotime('08:30') && strtotime($checkout) < strtotime('16:30')){
-                        $sql = "UPDATE `check_time` SET note2='$note', checkin_status ='4' WHERE username = '$user' AND `date` = '$date'"; //เข้าสาย และ ออกก่อน
+                        $sql = "UPDATE `check_time` SET note1='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //เข้าสาย และ ออกก่อน
                         if ($conn->query($sql) === TRUE) {
                             echo "<script>alert('บันทึกเวลาออกงานสำเร็จ');location.replace('/');</script>";
                         }else{
@@ -61,17 +61,17 @@
         $sql = "INSERT INTO `check_time` (`checkin_time`, `date`, `checkin_status`, `note1`, `username`) VALUES ('$time', '$date', '0', '$note', '$user')";
         if ($conn->query($sql) === TRUE) {
             if(strtotime($time) <= strtotime('08:30')){
-                $sql = "UPDATE `check_time` SET note2='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //ปกติ
+                $sql = "UPDATE `check_time` SET note1='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //ปกติ
                 if ($conn->query($sql) === TRUE) {
-                    echo "<script>alert('บันทึกเวลาออกงานสำเร็จ');location.replace('/');</script>";
+                    echo "<script>alert('บันทึกเวลาเข้างานสำเร็จ');location.replace('/');</script>";
                 }else{
                     echo "<script>alert('เกิดข้อผิดพลาด!! โปรดติดต่อผู้ดูแลระบบ');location.replace('/');</script>";
                 }
             }
             else if(strtotime($time) > strtotime('08:30')){
-                $sql = "UPDATE `check_time` SET note2='$note', checkin_status ='2' WHERE username = '$user' AND `date` = '$date'"; //เข้าสาย
+                $sql = "UPDATE `check_time` SET note1='$note', checkin_status ='1' WHERE username = '$user' AND `date` = '$date'"; //เข้าสาย
                 if ($conn->query($sql) === TRUE) {
-                    echo "<script>alert('บันทึกเวลาออกงานสำเร็จ');location.replace('/');</script>";
+                    echo "<script>alert('บันทึกเวลาเข้างานสำเร็จ');location.replace('/');</script>";
                 }else{
                     echo "<script>alert('เกิดข้อผิดพลาด!! โปรดติดต่อผู้ดูแลระบบ');location.replace('/');</script>";
                 }

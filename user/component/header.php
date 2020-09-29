@@ -106,14 +106,14 @@
                 <div class="form-inline top">
                   <label for="email">อีเมล: </label>
                   <input type="email" name="email" id="email" class="form-control left" placeholder="อีเมล"
-                    value="<?php echo $email; ?>" required>
+                    value="<?php echo $email; ?>">
                 </div>
 
-                <div class="form-inline top">
+                <!-- <div class="form-inline top">
                   <label for="phone">เบอร์โทร: </label>
                   <input type="text" name="phone" id="phone" class="form-control left" minlength="10" maxlength="10"
-                    placeholder="เบอร์โทรศัพท์" value="<?php echo $phone; ?>" required>
-                </div>
+                    placeholder="เบอร์โทรศัพท์" value="<?php //echo $phone; ?>" required>
+                </div> -->
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">ปิด</button>

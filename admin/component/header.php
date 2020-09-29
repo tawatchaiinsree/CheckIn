@@ -42,9 +42,15 @@
       <label style="font-size: 32px;color: ivory; margin-top: 0.75rem;">สำนักงานที่ดินจังหวัดสงขลา</label></li>
     <li style="float:right"><a href="/logout.php" style="color: ivory;"><button class="btn btn-danger font-25"><i
             class="fa fa-power-off" aria-hidden="true"></i>ออกจากระบบ</button></a></li>
-    <li style="float:right"><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style=" font-size: 28px; color: ivory;"><i class="fa fa-inbox right" aria-hidden="true"></i>ข้อความ <span class="badge badge-danger"><?php echo $count; ?></span></a></li>
+    <!-- <li style="float:right"><a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" style=" font-size: 28px; color: ivory;"><i class="fa fa-inbox right" aria-hidden="true"></i>ข้อความ <span class="badge badge-danger"><?php echo $count; ?></span></a></li> -->
     <li style="float:right"><a href="#" data-toggle="modal" data-target="#exampleModalCenter" style=" font-size: 28px; color: ivory;"><i class="fa fa-id-card right" aria-hidden="true"></i>แก้ไขข้อมูลส่วนตัว </a></li>
-    <li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a></li>
+    <?php if($_SERVER['REQUEST_URI'] == '/admin/manage-user.php'){
+    echo '<li style="float:right" class="active"><a href="manage-user.php" style=" font-size: 28px; color: ivory;"><i class="fa fa-group right" aria-hidden="true"></i>จัดการข้อมูลบุคลากร </a></li>';
+    }else{echo '<li style="float:right"><a href="manage-user.php" style=" font-size: 28px; color: ivory;"><i class="fa fa-group right" aria-hidden="true"></i>จัดการข้อมูลบุคลากร </a></li>';}
+    if($_SERVER['REQUEST_URI'] == '/admin/' || $_SERVER['REQUEST_URI'] == '/admin/index.php'){
+      echo '<li style="float:right" class="active"><a href="/" style="font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a></li>';
+    }else{echo '<li style="float:right"><a href="/" style="font-size: 28px;"><i class="fa fa-home" aria-hidden="true"></i>หน้าหลัก</a></li>';}
+    ?>
   </ul>
   <div class="ul-2">
     <label style="margin-left: 2%;"

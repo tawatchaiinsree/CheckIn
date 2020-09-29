@@ -76,3 +76,23 @@ $(document).ready(function() {
       fixedHeader: true
   } );
 } );
+
+function get_user_data(id){
+  $.post("get_user_data.php",
+  {
+    id: id,
+  },
+  function(data,status){
+    if(status === 'success'){
+      var data = JSON.parse(data);
+      console.log(data);
+      document.getElementById('usernames').value = data.username;
+      document.getElementById('pnames').value = data.pname;
+      document.getElementById('fnames').value = data.fname;
+      document.getElementById('lnames').value = data.lname;
+      document.getElementById('positions').value = data.position;
+      document.getElementById('user_types').value = data.id;
+      document.getElementById('emails').value = data.email;
+    }
+  });
+};

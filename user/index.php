@@ -12,8 +12,8 @@
     </div>
     <table class="tb-center top">
         <tr>
-            <td>เวลาเข้างาน</td>
-            <td>เวลาออกงาน</td>
+            <td>เวลามา</td>
+            <td>เวลากลับ</td>
             <td>หมายเหตุ</td>
         </tr>
         <tr>
@@ -58,8 +58,8 @@
     <thead>
             <tr style="text-align: center;">
                 <th>วันที่</th>
-                <th>เวลาเข้างาน</th>
-                <th>เวลาออกงาน</th>
+                <th>เวลามา</th>
+                <th>เวลากลับ</th>
                 <th>สถานะ</th>
                 <th>หมายเหตุ(เข้า)</th>
                 <th>หมายเหตุ(ออก)</th>

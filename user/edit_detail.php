@@ -7,7 +7,7 @@
     $lname = $_POST['lname'];
     $position = $_POST['position'];
     $email = $_POST['email'];
-    $phone = $_POST['phone'];
+    // $phone = $_POST['phone'];
 
     $sql = "UPDATE `user` SET 
     pname='$prefix', 
@@ -15,7 +15,7 @@
     lname='$lname', 
     position='$position', 
     email='$email', 
-    phone='$phone' 
+    phone='-' 
     WHERE username = '$username'";
     
 if ($conn->query($sql) === TRUE) {

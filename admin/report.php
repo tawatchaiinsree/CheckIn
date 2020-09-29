@@ -82,8 +82,9 @@ if($_POST['user_type'] != '0'){
 						<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
 						<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
 						<th style="width: 15%;"><strong>เวลาออก</strong></th>
-						<th style="width: 20%;"><strong>สถานะ</strong></th>
-						<th style="width: 15%;"><strong>หมายเหตุ</strong></th>
+						<th style="width: 10%;"><strong>ลายเซ็น</strong></th>
+						<th style="width: 10%;"><strong>สถานะ</strong></th>
+						<th style="width: 10%;"><strong>หมายเหตุ</strong></th>
 					</tr>';
 				}
 					if ($result->num_rows == 0) {
@@ -126,8 +127,9 @@ if($_POST['user_type'] != '0'){
 						<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
 						<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
 						<th style="width: 15%;"><strong>เวลาออก</strong></th>
-						<th style="width: 20%;"><strong>สถานะ</strong></th>
-						<th style="width: 15%;"><strong>หมายเหตุ</strong></th>
+						<th style="width: 10%;"><strong>ลายเซ็น</strong></th>
+						<th style="width: 10%;"><strong>สถานะ</strong></th>
+						<th style="width: 10%;"><strong>หมายเหตุ</strong></th>
 					</tr>';
 			}
 				$html2.= "
@@ -136,65 +138,67 @@ if($_POST['user_type'] != '0'){
 					<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
 					<td style=\"width: 15%;\">".$value['checkin_time']."</td>
 					<td style=\"width: 15%;\">".$value['checkout_time']."</td>
-					<td style=\"width: 20%;\">".$value['title']."</td>
-					<td style=\"width: 15%;\">".$value['note1']." ".$value['note2']."</td>
+					<td style=\"width: 10%;\"></td>
+					<td style=\"width: 10%;\">".$value['title']."</td>
+					<td style=\"width: 10%;\">".$value['note1']." ".$value['note2']."</td>
 				</tr>
 				";
 				$count++;
 				$come_count++;
 				$y+=5;
 		}
-// $result = $conn->query("SELECT * FROM user
-// RIGHT JOIN check_time ON check_time.username != user.username
-// WHERE user.permission = 'user' AND check_time.id = '$first_id'");
-// foreach ($result as $key => $value) {
-// 	if($count==26){
-// 		$html3 = '</table>';
-// 		$pdf->SetFont('thsarabun', '', 16);
-// 		$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
-// 		$html2 = '';
-// 		$pdf->AddPage();
-// 		$pdf->SetLineStyle(array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
-// 		$x = 5;
-// 		$y = 5;
-// 		$img_h = 26;
-// 		$img_w = 26;
-// 		$table_width = 196;
-// 		$table_height = 260;
-// 		$pdf->Image('../asset/img/icon.jpg', 210/2-8, $y-3, $img_w, $img_h, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
-// 		$pdf->SetFont('thsarabun', 'b', 16);
-// 		$pdf->SetXY($x+13, $y+=$img_h-5);
-// 		$pdf->Write(0, 'รายงานการลงเวลาปฏิบัติงาน', '', 0, 'C', true, 0, false, false, 0);
-// 		$pdf->SetXY($x+13, $y+=7);
-// 		$pdf->Write(0, "สำหรับ$user_type", '', 0, 'C', true, 0, false, false, 0);
-// 		$pdf->SetXY($x+13, $y+=7);
-// 		$pdf->Write(0, "วันที่ ".$date, '', 0, 'C', true, 0, false, false, 0);
+$result = $conn->query("SELECT * FROM user      
+WHERE permission='user' AND username NOT IN (SELECT username FROM check_time WHERE date = '".$_POST['start_date']."' AND check_time.checkin_status = '1')");
+foreach ($result as $key => $value) {
+	if($count==26){
+		$html3 = '</table>';
+		$pdf->SetFont('thsarabun', '', 16);
+		$pdf->writeHTML($html.$html2.$html3, true, false, true, false, '');
+		$html2 = '';
+		$pdf->AddPage();
+		$pdf->SetLineStyle(array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
+		$x = 5;
+		$y = 5;
+		$img_h = 26;
+		$img_w = 26;
+		$table_width = 196;
+		$table_height = 260;
+		$pdf->Image('../asset/img/icon.jpg', 210/2-8, $y-3, $img_w, $img_h, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
+		$pdf->SetFont('thsarabun', 'b', 16);
+		$pdf->SetXY($x+13, $y+=$img_h-5);
+		$pdf->Write(0, 'รายงานการลงเวลาปฏิบัติงาน', '', 0, 'C', true, 0, false, false, 0);
+		$pdf->SetXY($x+13, $y+=7);
+		$pdf->Write(0, "สำหรับ$user_type", '', 0, 'C', true, 0, false, false, 0);
+		$pdf->SetXY($x+13, $y+=7);
+		$pdf->Write(0, "วันที่ ".$date, '', 0, 'C', true, 0, false, false, 0);
 
-// 		$html = '
-// 		<table border="1" style="text-align:center;">
-// 			<tr>
-// 				<th style="width: 10%;"><strong>ลำดับ</strong></th>
-// 				<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
-// 				<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
-// 				<th style="width: 15%;"><strong>เวลาออก</strong></th>
-// 				<th style="width: 20%;"><strong>สถานะ</strong></th>
-// 				<th style="width: 15%;"><strong>หมายเหตุ</strong></th>
-// 			</tr>';
-// 	}
-// 	$html2.= "
-// 	<tr>
-// 		<td style=\"width: 10%;\">$count</td>
-// 		<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
-// 		<td style=\"width: 15%;\">-</td>
-// 		<td style=\"width: 15%;\">-</td>
-// 		<td style=\"width: 20%;\">-</td>
-// 		<td style=\"width: 15%;\"></td>
-// 	</tr>
-// 	";
-// 	$count++;
-// 	$no_come_count++;
-// 	$y+=5;
-// }
+		$html = '
+		<table border="1" style="text-align:center;">
+			<tr>
+				<th style="width: 10%;"><strong>ลำดับ</strong></th>
+				<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
+				<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
+				<th style="width: 15%;"><strong>เวลาออก</strong></th>
+				<th style="width: 10%;"><strong>ลายเซ็น</strong></th>
+				<th style="width: 10%;"><strong>สถานะ</strong></th>
+				<th style="width: 10%;"><strong>หมายเหตุ</strong></th>
+			</tr>';
+	}
+	$html2.= "
+	<tr>
+		<td style=\"width: 10%;\">$count</td>
+		<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
+		<td style=\"width: 15%;\">-</td>
+		<td style=\"width: 15%;\">-</td>
+		<td style=\"width: 10%;\"></td>
+		<td style=\"width: 10%;\">ไม่มา</td>
+		<td style=\"width: 10%;\"></td>
+	</tr>
+	";
+	$count++;
+	$no_come_count++;
+	$y+=5;
+}
 
 $html3 = '</table>';
 $count-=1;
