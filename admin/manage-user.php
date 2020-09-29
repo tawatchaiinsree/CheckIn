@@ -118,7 +118,7 @@
                         <div class="invalid-feedback">ไม่บังคับ</div>
                     </div>
                     <label for="fileToUpload">รูปลายเซ็นของบุคลากร</label>
-                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/png">
+                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/jpg">
                     <button style="text-align:center;" type="submit" class="btn btn-primary">บันทึก</button>
                 </form>
             </div>
@@ -199,7 +199,7 @@
                     </div>
                     
                     <label for="fileToUpload">รูปลายเซ็นของบุคลากร</label>
-                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/png">
+                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/jpg">
                     
                     <button style="text-align:center;" type="submit" class="btn btn-primary">ลงทะเบียน</button>
                     <!-- <a href="../login">กลับไปหน้าเข้าสู่ระบบ คลิ๊กที่นี่</a> -->

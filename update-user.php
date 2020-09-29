@@ -9,7 +9,6 @@ $email = $_POST['email'];
 
 
 if($_FILES["fileToUpload"]["name"]){
-  echo('5555555');
   $base_name = basename( $_FILES["fileToUpload"]["name"]);
 $file_name = explode(".", $base_name)[0];
 $file_s = explode(".", $base_name)[1];

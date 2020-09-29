@@ -40,6 +40,7 @@ $pdf->AddPage();
 $pdf->SetLineStyle(array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
 $x = 5;
 $y = 5;
+$y2 = 55;
 $img_h = 26;
 $img_w = 26;
 $table_width = 196;
@@ -81,9 +82,9 @@ if($_POST['user_type'] != '0'){
 					<tr>
 						<th style="width: 10%;"><strong>ลำดับ</strong></th>
 						<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
-						<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
-						<th style="width: 15%;"><strong>เวลาออก</strong></th>
-						<th style="width: 10%;"><strong>ลายเซ็น</strong></th>
+						<th style="width: 12%;"><strong>เวลาเข้า</strong></th>
+						<th style="width: 12%;"><strong>เวลาออก</strong></th>
+						<th style="width: 16%;"><strong>ลายเซ็น</strong></th>
 						<th style="width: 10%;"><strong>สถานะ</strong></th>
 						<th style="width: 10%;"><strong>หมายเหตุ</strong></th>
 					</tr>';
@@ -127,9 +128,9 @@ if($_POST['user_type'] != '0'){
 					<tr>
 						<th style="width: 10%;"><strong>ลำดับ</strong></th>
 						<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
-						<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
-						<th style="width: 15%;"><strong>เวลาออก</strong></th>
-						<th style="width: 10%;"><strong>ลายเซ็น</strong></th>
+						<th style="width: 12%;"><strong>เวลาเข้า</strong></th>
+						<th style="width: 12%;"><strong>เวลาออก</strong></th>
+						<th style="width: 16%;"><strong>ลายเซ็น</strong></th>
 						<th style="width: 10%;"><strong>สถานะ</strong></th>
 						<th style="width: 10%;"><strong>หมายเหตุ</strong></th>
 					</tr>';
@@ -138,13 +139,15 @@ if($_POST['user_type'] != '0'){
 				<tr>
 					<td style=\"width: 10%;\">$count</td>
 					<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
-					<td style=\"width: 15%;\">".$value['checkin_time']."</td>
-					<td style=\"width: 15%;\">".$value['checkout_time']."</td>
-					<td style=\"width: 10%;\"></td>
+					<td style=\"width: 12%;\">".$value['checkin_time']."</td>
+					<td style=\"width: 12%;\">".$value['checkout_time']."</td>
+					<td style=\"width: 16%;\"></td>
 					<td style=\"width: 10%;\">".$value['title']."</td>
 					<td style=\"width: 10%;\">".$value['note1']." ".$value['note2']."</td>
 				</tr>
 				";
+				$pdf->Image('../picture/'.$value['picture'], 124, $y2, 30, 6, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
+				$y2 += 7;
 				$count++;
 				$come_count++;
 				$y+=5;
@@ -180,9 +183,9 @@ foreach ($result as $key => $value) {
 			<tr>
 				<th style="width: 10%;"><strong>ลำดับ</strong></th>
 				<th style="width: 25%;"><strong>ชื่อ-นามสกุล</strong></th>
-				<th style="width: 15%;"><strong>เวลาเข้า</strong></th>
-				<th style="width: 15%;"><strong>เวลาออก</strong></th>
-				<th style="width: 10%;"><strong>ลายเซ็น</strong></th>
+				<th style="width: 12%;"><strong>เวลาเข้า</strong></th>
+				<th style="width: 12%;"><strong>เวลาออก</strong></th>
+				<th style="width: 16%;"><strong>ลายเซ็น</strong></th>
 				<th style="width: 10%;"><strong>สถานะ</strong></th>
 				<th style="width: 10%;"><strong>หมายเหตุ</strong></th>
 			</tr>';
@@ -191,13 +194,15 @@ foreach ($result as $key => $value) {
 	<tr>
 		<td style=\"width: 10%;\">$count</td>
 		<td style=\"width: 25%;\">".$value['pname'].$value['fname']." ".$value['lname']."</td>
-		<td style=\"width: 15%;\">-</td>
-		<td style=\"width: 15%;\">-</td>
-		<td style=\"width: 10%;\"></td>
+		<td style=\"width: 12%;\">-</td>
+		<td style=\"width: 12%;\">-</td>
+		<td style=\"width: 16%;\"></td>
 		<td style=\"width: 10%;\">ไม่มา</td>
 		<td style=\"width: 10%;\"></td>
 	</tr>
 	";
+	$pdf->Image('../picture/'.$value['picture'], 124, $y2, 30, 6, 'JPG', '', '', false, 300, '', false, false, 0, 0, false, false);
+				$y2 += 7;
 	$count++;
 	$no_come_count++;
 	$y+=5;
