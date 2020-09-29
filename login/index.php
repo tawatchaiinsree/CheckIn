@@ -29,23 +29,24 @@
     <div class="card">
       <div class="card-header">
         <img src="/asset/img/icon.png" class="rounded mx-auto d-block" style="width: 40%;">
-        <h2 style="text-align:center; "> สำนักงานที่ดินจังหวัดสงขลา</h2>
+        <h1 style="text-align:center; "> สำนักงานที่ดินจังหวัดสงขลา</h1>
       </div>
 
       <div class="row center-block">
         <br>
-        <img src="/asset/img/calendar.svg" alt="calendar" style="width: 4rem;"> <label id="show_thaidate" style="margin:auto; font-size: 28px;"></label>
+        <img src="/asset/img/calendar.svg" alt="calendar" style="width: 3rem;"> <label id="show_thaidate" style="margin:auto; font-size: 28px;"></label>
     <br>
     <form action="/user/check_time.php" method="post">
-                <input type="text" name="time" id="time_to_table" hidden>
                 <table>
                 <tr style="margin-top: 2 rem;">
-                <td>รหัสผ่าน</td><td>หมายเหตุ</td></tr>
+                <td>เวลามา/เวลากลับ</td><td>รหัสผ่าน</td><td>หมายเหตุ</td></tr>
                 <tr>
+                <td><input type="time" name="time" id="time_to_table" style="margin-top: -0.5rem;"></td>
                 <td><input class="left" style="margin-top: -0.5rem;" type="text" name="username" id=""  pattern="\d*" placeholder="กรอกรหัสผ่าน 4 ตัวของท่าน"></td>
                 <td><input class="left" style="margin-top: -0.5rem;" type="text" name="note" id="" placeholder="หมายเหตุ (ถ้ามี)"></td>
-                <td><button style="margin-left: 3rem;" class="btn btn-info font-25">บันทึก</button></td>
                 </tr>
+                <tr>
+                <td><td><button style="margin-left: 3rem; margin-top: 1rem;" class="btn btn-info font-25">บันทึก</button></td></td></tr>
                 </table>
               
             </form>

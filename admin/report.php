@@ -225,9 +225,9 @@ $summary = "
 $pdf->writeHTML($summary, true, false, true, false, '');
 	$pdf->SetFont('thsarabun', '', 16);
 	$y+=8;
-	$pdf->SetXY($x+20, $y+42);
+	$pdf->SetXY($x+20, $y+42+30);
 	$pdf->Write(0, "ผู้ตรวจ .................................................................", '', 0, 'R', true, 0, false, false, 0);
-	$pdf->SetXY($x+15, $y+49);
+	$pdf->SetXY($x+15, $y+49+30);
 	$pdf->Write(0, "(หัวหน้าหน่วยงานผู้รับผิดชอบงานการเจ้าหน้าที่)", '', 0, 'R', true, 0, false, false, 0);
 }
 $html2 = '';
