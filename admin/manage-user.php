@@ -20,6 +20,7 @@
                 <th>ชื่อผู้ใช้</th>
                 <th>ชื่อ-สกุล</th>
                 <th>ประเภท</th>
+                <th>ลายเซ็น</th>
                 <th>แก้ไข</th>
             </tr>
         </thead>
@@ -33,12 +34,13 @@
                 $name = $row['pname'].$row['fname'].' '. $row['lname'];
                 $title = $row['title'];
                 $username = $row['username'];
-                $password = $row['password'];
+                $picture = $row['picture'];
                 echo <<< EOD
                 <tr>
                     <td>$username</td>
                     <td>$name</td>
                     <td>$title</td>
+                    <td><img src="/picture/$picture" alt="ยังไม่เพิ่มลายเซ็น" style="width:20%;"></td>
                     <td>
                     <a href="delete-user.php?id=$username" onclick="return confirm('คุณแน่ใจหรือไม่ที่จะลบข้อมูลนี้?');"><button class="btn btn-danger">ลบ</button></a>
                     <button data-toggle="modal" data-target="#EditModal" class="btn btn-warning" onClick="get_user_data('$username')"> แก้ไข</button>
