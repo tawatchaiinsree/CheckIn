@@ -5,7 +5,7 @@
     $prefix = $_POST['pname'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
-    $position = $_POST['position'];
+    // $position = $_POST['position'];
     $email = $_POST['email'];
     // $phone = $_POST['phone'];
 
@@ -13,7 +13,6 @@
     pname='$prefix', 
     fname='$fname', 
     lname='$lname', 
-    position='$position', 
     email='$email', 
     phone='-' 
     WHERE username = '$username'";

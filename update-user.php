@@ -4,7 +4,6 @@ $username = $_POST['usernames'];
 $prefix = $_POST['prefixs'];
 $fname = $_POST['fnames'];
 $lname = $_POST['lnames'];
-$position = $_POST['positions'];
 $type = $_POST['types'];
 $email = $_POST['email'];
 
@@ -13,7 +12,6 @@ $email = $_POST['email'];
     pname = '$prefix', 
     fname = '$fname', 
     lname = '$lname', 
-    position = '$position', 
     type = '$type', 
     email = '$email' WHERE username = '$username'
     ";

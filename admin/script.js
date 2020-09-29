@@ -90,7 +90,6 @@ function get_user_data(id){
       document.getElementById('pnames').value = data.pname;
       document.getElementById('fnames').value = data.fname;
       document.getElementById('lnames').value = data.lname;
-      document.getElementById('positions').value = data.position;
       document.getElementById('user_types').value = data.id;
       document.getElementById('emails').value = data.email;
     }

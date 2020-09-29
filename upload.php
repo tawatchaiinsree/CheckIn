@@ -5,7 +5,6 @@ $username = $_POST['username'];
 $prefix = $_POST['prefix'];
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
-$position = $_POST['position'];
 $type = $_POST['type'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
@@ -23,8 +22,8 @@ $uploadOk = 1;
 //   $uploadOk = 0;
 // }
   // if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    $sql = "INSERT INTO `user` (`username`, `password`, `pname`, `fname`, `lname`, `position`, `type`, `email`, `phone`, `permission`, `picture`) 
-    VALUES ('$username', '-', '$prefix', '$fname', '$lname', '$position', '$type', '$email', '$phone', 'user', '$files')";
+    $sql = "INSERT INTO `user` (`username`, `password`, `pname`, `fname`, `lname`, `type`, `email`, `phone`, `permission`, `picture`) 
+    VALUES ('$username', '-', '$prefix', '$fname', '$lname', '$type', '$email', '$phone', 'user', '$files')";
     if ($conn->query($sql) === TRUE) {
       echo "<script>alert('ลงทะเบียนสำเร็จ! สามารถ Login เพื่อใช้งานระบบได้ทันที');location.replace(\"/admin/manage-user.php\");</script>";
     } else {

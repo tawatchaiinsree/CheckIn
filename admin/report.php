@@ -62,6 +62,7 @@ if($_POST['user_type'] != '0'){
 	$come_count = 0;
 	$no_come_count=0;
 	$late_count = 0;
+	$not_fond = 0;
 	$month = ['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายนน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน', 'ธันวาคม'];
 	$date = explode("-", $_POST['start_date']);
 	$date = intval($date[2]).' '.$month[intval($date[1])].' '.($date[0]+543);
@@ -89,6 +90,7 @@ if($_POST['user_type'] != '0'){
 				}
 					if ($result->num_rows == 0) {
 						$html2 = '<h2>ไม่พบข้อมูล</h2>';
+						$not_fond = 1;
 					}
 	foreach ($result as $key => $value) {$count_arr ++;}
 		foreach ($result as $key => $value) {
@@ -147,6 +149,7 @@ if($_POST['user_type'] != '0'){
 				$come_count++;
 				$y+=5;
 		}
+		if ($not_fond == 0){
 $result = $conn->query("SELECT * FROM user      
 WHERE permission='user' AND username NOT IN (SELECT username FROM check_time WHERE date = '".$_POST['start_date']."' AND check_time.checkin_status = '1')");
 foreach ($result as $key => $value) {
@@ -199,6 +202,7 @@ foreach ($result as $key => $value) {
 	$no_come_count++;
 	$y+=5;
 }
+		}
 
 $html3 = '</table>';
 $count-=1;

@@ -5,7 +5,6 @@
         $prefix = $_SESSION['pname'];
         $fname = $_SESSION['fname'];
         $lname = $_SESSION['lname'];
-        $position = $_SESSION['position'];
         $type = $_SESSION['type'];
         $email = $_SESSION['email'];
         $phone = $_SESSION['phone'];
@@ -158,11 +157,11 @@
                     value="<?php echo $lname; ?>" required>
                 </div>
 
-                <div class="form-inline top">
+                <!-- <div class="form-inline top">
                   <label for="position">ตำแหน่ง: </label>
                   <input type="text" name="position" id="position" class="form-control left" placeholder="ตำแหน่ง"
-                    value="<?php echo $position; ?>" required>
-                </div>
+                    value="<?php //echo $position; ?>" required>
+                </div> -->
 
                 <div class="form-inline top">
                   <label for="email">อีเมล: </label>

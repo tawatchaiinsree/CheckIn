@@ -11,7 +11,6 @@ $result = $conn->query("SELECT * FROM user INNER JOIN user_type ON user.type = u
                     "fname": "'.$row["fname"].'",
                     "lname": "'.$row["lname"].'",
                     "user_type": "'.$row["user_type"].'",
-                    "position": "'.$row["position"].'",
                     "email": "'.$row["email"].'",
                     "title": "'.$row["title"].'"
                 }';

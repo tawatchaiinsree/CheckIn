@@ -86,12 +86,12 @@
                         <input type="text" class="form-control col-12"  placeholder="นามสกุล" name="lnames" id="lnames" required>
                         <div class="invalid-feedback">กรุณาระบุนามสกุลของบุคลากร</div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="position">ตำแหน่ง:</label>
                         <input type="text" class="form-control col-12"  placeholder="ตำแหน่ง"
                             name="positions" id="positions" required>
                         <div class="invalid-feedback">กรุณาระบุตำแหน่งของบุคลากร</div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="types">ประเภท:</label>
                        <select name="types" id="user_types" class="form-control" >
@@ -165,12 +165,12 @@
                         <input type="text" class="form-control col-12"  placeholder="นามสกุล" name="lname" required>
                         <div class="invalid-feedback">กรุณาระบุนามสกุลของบุคลากร</div>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="position">ตำแหน่ง:</label>
                         <input type="text" class="form-control col-12"  placeholder="ตำแหน่ง"
                             name="position" required>
                         <div class="invalid-feedback">กรุณาระบุตำแหน่งของบุคลากร</div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="type">ประเภท:</label>
                        <select name="type" class="form-control" >
@@ -195,11 +195,9 @@
                         <div class="invalid-feedback">ไม่บังคับ</div>
                     </div>
                     
-                    <label for="fileToUpload">กรุณาอัพโหลดรูปภาพของบุคลากร</label>
-                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/*">
+                    <!-- <label for="fileToUpload">กรุณาอัพโหลดรูปภาพของบุคลากร</label>
+                    <input type="file" class="btn btn-warning" name="fileToUpload"  accept="image/*"> -->
                     
-                    <br>
-                    <br>
                     <button style="text-align:center;" type="submit" class="btn btn-primary">ลงทะเบียน</button>
                     <!-- <a href="../login">กลับไปหน้าเข้าสู่ระบบ คลิ๊กที่นี่</a> -->
                 </form>
